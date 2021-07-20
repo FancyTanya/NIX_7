@@ -2,6 +2,7 @@ package ua.com.alevel;
 
 import ua.com.alevel.students.StudentsInfo;
 import ua.com.alevel.education.Education;
+import static ua.com.alevel.education.Education.*;
 
 public class Main {
     public static void main(String[] args) {
