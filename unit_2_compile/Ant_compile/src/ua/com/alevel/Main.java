@@ -6,7 +6,7 @@ import ua.com.alevel.education.Education;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Console");
+        System.out.println("Ant");
         new Education().study();
     }
 }
