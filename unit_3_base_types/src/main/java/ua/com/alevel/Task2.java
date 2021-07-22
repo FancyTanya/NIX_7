@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Task2 {
 
-    public static void main(String[] args) {
+    public static void doTask2() {
         System.out.println("Please, enter something and I will calculate the number of letters");
         Scanner scanner = new Scanner(System.in);
         String s = scanner.nextLine();

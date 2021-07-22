@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Task1 {
 
-    public static void main(String[] args) {
+    public static void doTask1() {
         System.out.println("Please, enter something and I will calculate the sum of the numbers");
         Scanner scanner = new Scanner(System.in);
         String s = scanner.nextLine();
