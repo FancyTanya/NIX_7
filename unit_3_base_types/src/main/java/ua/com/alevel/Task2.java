@@ -2,6 +2,7 @@ package ua.com.alevel;
 
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 
 public class Task2 {
@@ -13,8 +14,8 @@ public class Task2 {
         System.out.println(findLetters(s));
     }
 
-    public static HashMap<Character, Integer> findLetters(String string) {
-        HashMap<Character, Integer> result = new HashMap<>();
+    public static TreeMap<Character, Integer> findLetters(String string) {
+        TreeMap<Character, Integer> result = new TreeMap<>();
         String input = string.replaceAll("[0-9]", "").toLowerCase();
         char[] array = input.toCharArray();
         for (char c : array) {
