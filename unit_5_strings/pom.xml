@@ -25,9 +25,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>ua.com.alevel</groupId>
             <artifactId>reverseString</artifactId>
             <version>1.0</version>
+            <scope>compile</scope>
             <systemPath>${basedir}\src\main\resources\libs\reverseString.jar</systemPath>
         </dependency>
     </dependencies>
