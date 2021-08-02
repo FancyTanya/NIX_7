@@ -1,2 +1,2 @@
-call mvn clean package
-call java -jar target\app.jar
+call mvn clean package install
+
