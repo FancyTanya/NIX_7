@@ -2,13 +2,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ua.com.alevel</groupId>
-    <artifactId>app</artifactId>
+    <artifactId>libsRevers</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>unit_5_strings</module>
     </modules>
-    <name>app</name>
+    <name>libsRevers</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -43,7 +43,7 @@
     </dependencies>
 
     <build>
-        <finalName>chess</finalName>
+        <finalName>libsRevers</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -87,7 +87,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>chess.Board</mainClass>
+                                    <mainClass>ReversString</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
