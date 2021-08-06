@@ -4,10 +4,6 @@ import java.util.Scanner;
 
 public class TriangleSquare {
 
-    public static void main(String[] args) {
-        triangleSquare();
-    }
-
     public static void triangleSquare() {
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter the value of the coordinates of the vertex of the triangle");
