@@ -1,6 +1,9 @@
 package levelThree;
 
 public class GameOfLife {
+    public static void main(String[] args) {
+        runGameOfLive();
+    }
 
     public static void runGameOfLive() {
         int M = 10;
@@ -10,13 +13,10 @@ public class GameOfLife {
         int[][] cells = new int[10][10];
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells.length; j++) {
-
                 cells[i][j] = (int) (Math.random() * 2);
-                if (j == 9) {
-                    System.out.print("\n");
-                }
-                System.out.printf("%3d", cells[i][j]);
+                    System.out.print(cells[i][j] + " ");
             }
+            System.out.println();
         }
         nextGeneration(cells, M, N);
     }
@@ -47,12 +47,18 @@ public class GameOfLife {
         System.out.println("Next generation");
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
-                if (j == 9) {
-                    System.out.print("\n");
-                }
-                System.out.printf("%3d", future[i][j]);
+                System.out.print(future[i][j] + " ");
             }
+            System.out.println();
         }
+    }
+
+    public static void printRow(int[] row) {
+        for (int i : row) {
+            System.out.print(i);
+            System.out.print("\t");
+        }
+        System.out.println();
     }
 }
 
