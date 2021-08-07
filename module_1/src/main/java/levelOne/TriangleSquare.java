@@ -24,12 +24,12 @@ public class TriangleSquare {
 
         // d = √ ((х2 - х1 )² + (у2 - у1 )²
         double sideAB = Math.pow(((xA - xB) * (xA - xB) + (yA - yB) * (yA - yB)), 1 / 2);
-        double sideBA = Math.pow(((xB - xA) * (xB - xA) + (yB - yA) * (yB - yA)), 1 / 2);
         double sideBC = Math.pow(((xB - xC) * (xB - xC) + (yB - yC) * (yB - yC)), 1 / 2);
-        double polyPerimeter = (sideAB + sideBA + sideBC) / 2;
+        double sideCA = Math.pow(((xC - xA) * (xC - xA) + (yC - yA) * (yC - yA)), 1 / 2);
+        double polyPerimeter = (sideAB + sideCA + sideBC) / 2;
 
         // S = √(p(p-a)(p-b)(p-c)).
-        double square = Math.pow(polyPerimeter * (polyPerimeter - sideAB) * (polyPerimeter - sideBA) * (polyPerimeter - sideBC), 1 / 2);
+        double square = Math.pow(polyPerimeter * (polyPerimeter - sideAB) * (polyPerimeter - sideCA) * (polyPerimeter - sideBC), 1 / 2);
 
         System.out.println("The square of triangle is " + square);
 
