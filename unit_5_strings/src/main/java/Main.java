@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         System.out.println("**************************");
         System.out.println("If you want to reverse the string. Enter number 1");
         System.out.println("If you want to enter a string and reverse some word. Enter number 2");
@@ -31,10 +31,8 @@ public class Main {
             int start = Integer.parseInt(indexes[0]);
             int end = Integer.parseInt(indexes[1]);
             System.out.println(ReversString.reverseString(inputStr, start, end));
-        }
-        else {
+        } else {
             System.out.println("Please enter correct number");
         }
-
     }
 }
