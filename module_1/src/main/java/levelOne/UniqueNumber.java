@@ -22,6 +22,5 @@ public class UniqueNumber {
             array[i] = input.nextInt();
         }
         System.out.println("The number of unique characters in the array is " + uniqueNumber(array));
-
     }
 }
