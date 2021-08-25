@@ -3,6 +3,7 @@ package levelTwo;
 import java.util.Scanner;
 
 public class isCorrectString {
+
     public static boolean isCorrectString(String input) {
         if ((input.startsWith("(") && input.endsWith(")"))
                 || input.isEmpty()
@@ -15,6 +16,7 @@ public class isCorrectString {
         }
         return  false;
     }
+
     public static void testIsCorrectString() {
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter the string with braces");

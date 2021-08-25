@@ -32,6 +32,5 @@ public class TriangleSquare {
         double square = Math.pow(polyPerimeter * (polyPerimeter - sideAB) * (polyPerimeter - sideCA) * (polyPerimeter - sideBC), 1 / 2);
 
         System.out.println("The square of triangle is " + square);
-
     }
 }

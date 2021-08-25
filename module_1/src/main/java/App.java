@@ -7,8 +7,8 @@ import static levelTwo.isCorrectString.testIsCorrectString;
 import static levelThree.GameOfLife.runGameOfLive;
 
 public class App {
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         doTask1();
         System.out.println("--------------------");
         knightMove();

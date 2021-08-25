@@ -44,5 +44,4 @@ public class ReversString {
         result.append(tail);
         return result.toString();
     }
-
 }
