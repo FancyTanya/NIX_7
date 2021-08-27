@@ -1,20 +1,13 @@
 package ua.com.alevel.util;
 
-import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import myException.MyException;
-import ua.com.alevel.controller.Controller;
-import ua.com.alevel.timeObject.Month;
 import ua.com.alevel.timeObject.TimeObject;
-
-import java.util.Scanner;
 
 import static ua.com.alevel.controller.Controller.patternSelection;
 import static ua.com.alevel.timeObject.Month.*;
 import static ua.com.alevel.util.DateTimeConstants.*;
 
 public class DateTimeMethods {
-    TimeObject timeObject = new TimeObject();
-    public Month month = new Month();
 
     public DateTimeMethods() throws MyException {
     }
@@ -244,68 +237,66 @@ public class DateTimeMethods {
         int millis = 0;
 
         int periodBetweenTwoDatesInMillis = periodBetweenTwoDatesInMillis(startDate, finishDate);
-            if (checkIsLeapYear(getYearPatternOne(startDate))) {
-                year = periodBetweenTwoDatesInMillis/(DAYS_IN_LEAP_YEAR * HOUR_IN_DAY * SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND);
-            }
-            year = periodBetweenTwoDatesInMillis/(DAYS_IN_YEAR * HOUR_IN_DAY * SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND);
-            month = periodBetweenTwoDatesInMillis/(MONTH_IN_YEAR * HOUR_IN_DAY * SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND);
-            days = periodBetweenTwoDatesInMillis/ (MILLISECONDS_IN_HOUR * HOUR_IN_DAY);
-            hours = periodBetweenTwoDatesInMillis/ MILLISECONDS_IN_HOUR;
-            minutes = periodBetweenTwoDatesInMillis/ MILLISECONDS_IN_MINUTE;
-            seconds = periodBetweenTwoDatesInMillis/ MILLISECONDS_IN_SECOND;
-            millis = periodBetweenTwoDatesInMillis;
-
-            return "Period between two dates is: " + "\n" +
-                    "year: " + year + "\n" +
-                    "month: " + month + "\n" +
-                    "days: " + days + "\n" +
-                    "hours: " + hours + "\n" +
-                    "minutes: " + minutes + "\n" +
-                    "seconds: " + seconds + "\n" +
-                    "millis" + millis + "\n" ;
-
+        if (checkIsLeapYear(getYearPatternOne(startDate))) {
+            year = periodBetweenTwoDatesInMillis / (DAYS_IN_LEAP_YEAR * HOUR_IN_DAY * SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND);
         }
+        year = periodBetweenTwoDatesInMillis / (DAYS_IN_YEAR * HOUR_IN_DAY * SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND);
+        month = periodBetweenTwoDatesInMillis / (MONTH_IN_YEAR * HOUR_IN_DAY * SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND);
+        days = periodBetweenTwoDatesInMillis / (MILLISECONDS_IN_HOUR * HOUR_IN_DAY);
+        hours = periodBetweenTwoDatesInMillis / MILLISECONDS_IN_HOUR;
+        minutes = periodBetweenTwoDatesInMillis / MILLISECONDS_IN_MINUTE;
+        seconds = periodBetweenTwoDatesInMillis / MILLISECONDS_IN_SECOND;
+        millis = periodBetweenTwoDatesInMillis;
 
+        return "Period between two dates is: " + "\n" +
+                "year: " + year + "\n" +
+                "month: " + month + "\n" +
+                "days: " + days + "\n" +
+                "hours: " + hours + "\n" +
+                "minutes: " + minutes + "\n" +
+                "seconds: " + seconds + "\n" +
+                "millis" + millis + "\n";
+
+    }
 
 
     private static int findMonthCount(String month) throws MyException {
         switch (month) {
             case JANUARY:
                 return JANUARY.getMonthCount();
-            break;
             case FEBRUARY:
                 return FEBRUARY.getMonthCount();
-            break;
+
             case MARCH:
                 return MARCH.getMonthCount();
-            break;
+
             case APRIL:
                 return APRIL.getMonthCount();
-            break;
+
             case MAY:
                 return MAY.getMonthCount();
-            break;
+
             case JUNE:
                 return JUNE.getMonthCount();
-            break;
+
             case JULY:
                 return JULY.getMonthCount();
-            break;
+
             case AUGUST:
                 return AUGUST.getMonthCount();
-            break;
+
             case SEPTEMBER:
                 return SEPTEMBER.getMonthCount();
-            break;
+
             case OCTOBER:
                 return OCTOBER.getMonthCount();
-            break;
+
             case NOVEMBER:
                 return NOVEMBER.getMonthCount();
-            break;
+
             case DECEMBER:
                 return DECEMBER.getMonthCount();
-            break;
+
             default:
                 throw new MyException("Please enter correct month.");
         }
@@ -316,6 +307,453 @@ public class DateTimeMethods {
             return true;
         }
         return false;
+    }
+
+    public static String addYearToDate(String startDate, String addition) throws MyException {
+        String days = "";
+        String month = "";
+        String year = "";
+        if (patternSelection == 1) {
+            // Pattern dd/mm/yy
+
+            if (startDate.contains("/")) {
+                String[] split = startDate.split("/");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        days = split[0];
+                        month = split[1];
+                        int temporaryYear = Integer.parseInt(addition) + Integer.parseInt(split[2]);
+                        year += temporaryYear;
+                    }
+                }
+            }
+            return days + "/" + month + "/" + year;
+        }
+        if (patternSelection == 2) {
+            // Pattern m/d/yyyy
+            if (startDate.contains("/")) {
+                String[] split = startDate.split("/");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        month = split[0];
+                        days = split[1];
+                        int temporaryYear = Integer.parseInt(addition) + Integer.parseInt(split[2]);
+                        year += temporaryYear;
+                    }
+                }
+                return month + "/" + days + "/" + year;
+            }
+        }
+        if (patternSelection == 3) {
+            // Pattern mmm-d-yy
+            if (startDate.contains("-")) {
+                String[] split = startDate.split("-");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        month = split[0];
+                        days = split[1];
+                        int temporaryYear = Integer.parseInt(addition) + Integer.parseInt(split[2]);
+                        year += temporaryYear;
+                    }
+                }
+            }
+            return month + "-" + days + "-" + year;
+        }
+        if (patternSelection == 4) {
+            // Pattern dd-mmm-yyyy 00:00
+            String date = "";
+            String time = "";
+            if (startDate.contains(" ")) {
+                String[] split = startDate.split(" ");
+                if (split.length != 0) {
+                    if (split.length == 2) {
+                        date = split[0];
+                        time = split[1];
+                        if (date.contains("-")) {
+                            String[] splitDate = date.split("-");
+                            if (splitDate.length != 0) {
+                                if (splitDate.length == 3) {
+                                    days = splitDate[0];
+                                    month = splitDate[1];
+                                    int temporaryYear = Integer.parseInt(addition) + Integer.parseInt(splitDate[2]);
+                                    year += temporaryYear;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            return days + "-" + month + "-" + year + " " + time;
+        }
+        return days + "/" + month + "/" + year;
+    }
+
+    public static String addMonthToDate(String startDate, String addition) throws MyException {
+        String days = "";
+        String month = "";
+        String year = "";
+        if (patternSelection == 1) {
+            // Pattern dd/mm/yy
+
+            if (startDate.contains("/")) {
+                String[] split = startDate.split("/");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        days = split[0];
+                        int temporaryMonth = Integer.parseInt(addition) + Integer.parseInt(split[1]);
+                        month += temporaryMonth;
+                        year = split[2];
+                    }
+                }
+            }
+            return days + "/" + month + "/" + year;
+        }
+        if (patternSelection == 2) {
+            // Pattern m/d/yyyy
+            if (startDate.contains("/")) {
+                String[] split = startDate.split("/");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        int temporaryMonth = Integer.parseInt(addition) + Integer.parseInt(split[0]);
+                        month += temporaryMonth;
+                        days = split[1];
+                        year = split[2];
+                    }
+                }
+                return month + "/" + days + "/" + year;
+            }
+        }
+        if (patternSelection == 3) {
+            // Pattern mmm-d-yy
+            if (startDate.contains("-")) {
+                String[] split = startDate.split("-");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        int temporaryMonth = Integer.parseInt(addition) + Integer.parseInt(split[0]);
+                        month += temporaryMonth;
+                        days = split[1];
+                        year = split[2];
+                    }
+                }
+            }
+            return month + "-" + days + "-" + year;
+        }
+        if (patternSelection == 4) {
+            // Pattern dd-mmm-yyyy 00:00
+            String date = "";
+            String time = "";
+            if (startDate.contains(" ")) {
+                String[] split = startDate.split(" ");
+                if (split.length != 0) {
+                    if (split.length == 2) {
+                        date = split[0];
+                        time = split[1];
+                        if (date.contains("-")) {
+                            String[] splitDate = date.split("-");
+                            if (splitDate.length != 0) {
+                                if (splitDate.length == 3) {
+                                    days = splitDate[0];
+                                    int temporaryMonth = Integer.parseInt(addition) + Integer.parseInt(split[1]);
+                                    month += temporaryMonth;
+                                    year = splitDate[2];
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            return days + "-" + month + "-" + year + " " + time;
+        }
+        return days + "/" + month + "/" + year;
+    }
+
+    public static String addDaysToDate(String startDate, String addition) throws MyException {
+        String days = "";
+        String month = "";
+        String year = "";
+        if (patternSelection == 1) {
+            // Pattern dd/mm/yy
+
+            if (startDate.contains("/")) {
+                String[] split = startDate.split("/");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        int temporaryDays = Integer.parseInt(addition) + Integer.parseInt(split[0]);
+                        days += temporaryDays;
+                        month = split[1];
+                        year = split[2];
+                    }
+                }
+            }
+            return days + "/" + month + "/" + year;
+        }
+        if (patternSelection == 2) {
+            // Pattern m/d/yyyy
+            if (startDate.contains("/")) {
+                String[] split = startDate.split("/");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        month = split[0];
+                        int temporaryDays = Integer.parseInt(addition) + Integer.parseInt(split[0]);
+                        days += temporaryDays;
+                        year = split[2];
+                    }
+                }
+                return month + "/" + days + "/" + year;
+            }
+        }
+        if (patternSelection == 3) {
+            // Pattern mmm-d-yy
+            if (startDate.contains("-")) {
+                String[] split = startDate.split("-");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        month = split[0];
+                        int temporaryDays = Integer.parseInt(addition) + Integer.parseInt(split[0]);
+                        days += temporaryDays;
+                        year = split[2];
+                    }
+                }
+            }
+            return month + "-" + days + "-" + year;
+        }
+        if (patternSelection == 4) {
+            // Pattern dd-mmm-yyyy 00:00
+            String date = "";
+            String time = "";
+            if (startDate.contains(" ")) {
+                String[] split = startDate.split(" ");
+                if (split.length != 0) {
+                    if (split.length == 2) {
+                        date = split[0];
+                        time = split[1];
+                        if (date.contains("-")) {
+                            String[] splitDate = date.split("-");
+                            if (splitDate.length != 0) {
+                                if (splitDate.length == 3) {
+                                    int temporaryDays = Integer.parseInt(addition) + Integer.parseInt(split[0]);
+                                    days += temporaryDays;
+                                    month = splitDate[1];
+                                    year = splitDate[2];
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            return days + "-" + month + "-" + year + " " + time;
+        }
+        return days + "/" + month + "/" + year;
+    }
+
+    public static String addHoursToDate(String startDate, String addition) throws MyException {
+        String days = "";
+        String month = "";
+        String year = "";
+        String hour = "";
+        String minute = ":00";
+        if (patternSelection == 1) {
+            // Pattern dd/mm/yy
+
+            if (startDate.contains("/")) {
+                String[] split = startDate.split("/");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        days = split[0];
+                        month = split[1];
+                        year = split[2];
+                    }
+                }
+            }
+            return days + "/" + month + "/" + year + " " + hour + minute;
+        }
+        if (patternSelection == 2) {
+            // Pattern m/d/yyyy
+            if (startDate.contains("/")) {
+                String[] split = startDate.split("/");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        month = split[0];
+                        days = split[1];
+                        year = split[2];
+                    }
+                }
+                return month + "/" + days + "/" + year + " " + hour + minute;
+            }
+        }
+        if (patternSelection == 3) {
+            // Pattern mmm-d-yy
+            if (startDate.contains("-")) {
+                String[] split = startDate.split("-");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        month = split[0];
+                        days = split[1];
+                        year = split[2];
+                    }
+                }
+            }
+            return month + "-" + days + "-" + year + " " + hour + minute;
+        }
+        if (patternSelection == 4) {
+            // Pattern dd-mmm-yyyy 00:00
+            String date = "";
+            String time = "";
+            if (startDate.contains(" ")) {
+                String[] split = startDate.split(" ");
+                if (split.length != 0) {
+                    if (split.length == 2) {
+                        date = split[0];
+                        time = split[1];
+                        if (date.contains("-")) {
+                            String[] splitDate = date.split("-");
+                            if (splitDate.length != 0) {
+                                if (splitDate.length == 3) {
+                                    days = splitDate[0];
+                                    month = splitDate[1];
+                                    year = splitDate[2];
+                                }
+                            }
+                        }
+                        if (time.contains(":")) {
+                            String[] splitTime = time.split(":");
+                            if (splitTime.length != 0) {
+                                if (splitTime.length == 2) {
+                                    int temporaryHours = Integer.parseInt(splitTime[0]) + Integer.parseInt(addition);
+                                    hour += temporaryHours;
+                                    minute = splitTime[1];
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            return days + "-" + month + "-" + year + " " + hour + ":" + minute;
+        }
+        return days + "/" + month + "/" + year;
+    }
+
+    public static String addMinutesToDate(String startDate, String addition) throws MyException {
+        String days = "";
+        String month = "";
+        String year = "";
+        String hour = "";
+        String minute = "";
+        if (patternSelection == 1) {
+            // Pattern dd/mm/yy
+
+            if (startDate.contains("/")) {
+                String[] split = startDate.split("/");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        days = split[0];
+                        month = split[1];
+                        year = split[2];
+                    }
+                }
+            }
+            return days + "/" + month + "/" + year + " 00:" + minute;
+        }
+        if (patternSelection == 2) {
+            // Pattern m/d/yyyy
+            if (startDate.contains("/")) {
+                String[] split = startDate.split("/");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        month = split[0];
+                        days = split[1];
+                        year = split[2];
+                    }
+                }
+                return month + "/" + days + "/" + year + " 00:" + minute;
+            }
+        }
+        if (patternSelection == 3) {
+            // Pattern mmm-d-yy
+            if (startDate.contains("-")) {
+                String[] split = startDate.split("-");
+                if (split.length != 0) {
+                    if (split.length == 3) {
+                        month = split[0];
+                        days = split[1];
+                        year = split[2];
+                    }
+                }
+            }
+            return month + "-" + days + "-" + year + " 00:" + minute;
+        }
+        if (patternSelection == 4) {
+            // Pattern dd-mmm-yyyy 00:00
+            String date = "";
+            String time = "";
+            if (startDate.contains(" ")) {
+                String[] split = startDate.split(" ");
+                if (split.length != 0) {
+                    if (split.length == 2) {
+                        date = split[0];
+                        time = split[1];
+                        if (date.contains("-")) {
+                            String[] splitDate = date.split("-");
+                            if (splitDate.length != 0) {
+                                if (splitDate.length == 3) {
+                                    days = splitDate[0];
+                                    month = splitDate[1];
+                                    year = splitDate[2];
+                                }
+                            }
+                        }
+                        if (time.contains(":")) {
+                            String[] splitTime = time.split(":");
+                            if (splitTime.length != 0) {
+                                if (splitTime.length == 2) {
+                                    int temporaryMinutes = Integer.parseInt(splitTime[1]) + Integer.parseInt(addition);
+                                    hour = hour;
+                                    minute += temporaryMinutes;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            return days + "-" + month + "-" + year + " " + hour + ":" + minute;
+        }
+        return days + "/" + month + "/" + year;
+    }
+
+    public static void dateSorting(String firstDate, String secondDate) throws MyException {
+        int firstMillis = 0;
+        int secondMillis = 0;
+
+        if (patternSelection == 1) {
+            firstMillis = setTimeDaysMonthYear(firstDate);
+            secondMillis = setTimeDaysMonthYear(secondDate);
+        }
+        if (patternSelection == 2) {
+            firstMillis = setTimeMonthDaysYear(firstDate);
+            secondMillis = setTimeMonthDaysYear(secondDate);
+        }
+        if (patternSelection == 3) {
+            firstMillis = setTimeMonthTitleDaysYear(firstDate);
+            secondMillis = setTimeMonthTitleDaysYear(secondDate);
+        }
+        if (patternSelection == 4) {
+            firstMillis = setDaysMonthTitleYearTime(firstDate);
+            secondMillis = setDaysMonthTitleYearTime(secondDate);
+        }
+        if (firstMillis > secondMillis) {
+            System.out.println(firstDate + " > " + secondDate);
+        }
+        if (firstMillis < secondMillis) {
+            System.out.println(firstDate + " < " + secondDate);
+        }
+        if (firstMillis == secondMillis) {
+            System.out.println(firstDate + " = " + secondDate);
+        }
     }
 
 

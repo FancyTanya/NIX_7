@@ -31,18 +31,30 @@ public enum Month  {
         this.monthCount = monthCount;
     }
 
-    public Month(String name, int daysCount, int monthCount) throws MyException{
+    Month(String name, int daysCount, int monthCount) {
         this.name = name;
         this.daysCount = daysCount;
         this.monthCount = monthCount;
         if (monthCount < 0 || monthCount > 12) {
-            throw new MyException("Please enter correct data.");
+            try {
+                throw new MyException("Please enter correct data.");
+            } catch (MyException e) {
+                e.printStackTrace();
+            }
         }
         if (!name.equals(this.name)) {
-            throw new MyException("Please enter correct data.");
+            try {
+                throw new MyException("Please enter correct data.");
+            } catch (MyException e) {
+                e.printStackTrace();
+            }
         }
         if (daysCount <0 || daysCount >31) {
-            throw new MyException("Please enter correct data.");
+            try {
+                throw new MyException("Please enter correct data.");
+            } catch (MyException e) {
+                e.printStackTrace();
+            }
         }
         if (name == "Февраль") {
             if (checkIsLeapYear(YEAR)) {
