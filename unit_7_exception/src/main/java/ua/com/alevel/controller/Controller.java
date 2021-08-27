@@ -24,6 +24,14 @@ public class Controller {
             System.out.println("Please, enter correct number");
             menuWithFunctions();
         }
+        if (methodsSelection == 1) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter the start date for the calculation");
+            String startDate = scanner.nextLine();
+            System.out.println("Enter the end date for calculation");
+            String endDate = scanner.nextLine();
+            dateStringOutput(startDate, endDate);
+        }
 
 
 

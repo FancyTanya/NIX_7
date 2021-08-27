@@ -31,7 +31,7 @@ public class DateTimeMethods {
         int year = 0;
         if (inputTime.contains("/")) {
             String[] split = inputTime.split("/");
-            if (split.length !=0) {
+            if (split.length != 0) {
                 if (split.length == 3) {
                     year = Integer.parseInt(split[2]);
                 }
@@ -47,7 +47,7 @@ public class DateTimeMethods {
         int year = 0;
         if (inputTime.contains("/")) {
             String[] split = inputTime.split("/");
-            if (split.length !=0) {
+            if (split.length != 0) {
                 if (split.length == 3) {
                     days = Integer.parseInt(split[0]);
                     month = Integer.parseInt(split[1]);
@@ -55,7 +55,7 @@ public class DateTimeMethods {
                 }
             }
         }
-       return timeInMillis(days,month,year);
+        return timeInMillis(days, month, year);
     }
 
 
@@ -64,12 +64,13 @@ public class DateTimeMethods {
                 MILLISECONDS_IN_MINUTE * minute;
         return timeInMillis;
     }
+
     public static int getYearPatternTwo(String inputTime) {
         // Pattern m/d/yyyy
         int year = 0;
         if (inputTime.contains("/")) {
             String[] split = inputTime.split("/");
-            if (split.length !=0) {
+            if (split.length != 0) {
                 if (split.length == 3) {
 
                     year = Integer.parseInt(split[2]);
@@ -86,7 +87,7 @@ public class DateTimeMethods {
         int year = 0;
         if (inputTime.contains("/")) {
             String[] split = inputTime.split("/");
-            if (split.length !=0) {
+            if (split.length != 0) {
                 if (split.length == 3) {
                     month = Integer.parseInt(split[0]);
                     days = Integer.parseInt(split[1]);
@@ -94,7 +95,7 @@ public class DateTimeMethods {
                 }
             }
         }
-        return timeInMillis(days,month,year);
+        return timeInMillis(days, month, year);
     }
 
     public static int getYearPatternThree(String inputTime) throws MyException {
@@ -126,7 +127,7 @@ public class DateTimeMethods {
                 }
             }
         }
-        return timeInMillis(days,month,year);
+        return timeInMillis(days, month, year);
     }
 
     public static int getYearDaysMonthTitleYear(String inputTime) throws MyException {
@@ -158,7 +159,7 @@ public class DateTimeMethods {
                 }
             }
         }
-        return timeInMillis(days,month,year);
+        return timeInMillis(days, month, year);
     }
 
     public static int setTimeHourMinute(String inputTime) {
@@ -167,7 +168,7 @@ public class DateTimeMethods {
         int minute = 0;
         if (inputTime.contains(":")) {
             String[] split = inputTime.split(":");
-            if (split.length !=0) {
+            if (split.length != 0) {
                 if (split.length == 2) {
                     hour = Integer.parseInt(split[0]);
                     minute = Integer.parseInt(split[1]);
@@ -208,7 +209,7 @@ public class DateTimeMethods {
         return setDaysMonthTitleYear(date) + setTimeHourMinute(time);
     }
 
-    public static int periodBetweenTwoDatesInMillis(String startDate, String finishDate)  {
+    public static int periodBetweenTwoDatesInMillis(String startDate, String finishDate) {
         int periodBetweenTwoDatesInMillis = 0;
         if (patternSelection == 1) {
             periodBetweenTwoDatesInMillis = setTimeDaysMonthYear(finishDate) - setTimeDaysMonthYear(startDate);
@@ -233,7 +234,7 @@ public class DateTimeMethods {
         return periodBetweenTwoDatesInMillis;
     }
 
-    public static String dateStringOutput(String startDate, String finishDate, int patternSelection) {
+    public static String dateStringOutput(String startDate, String finishDate) {
         int year = 0;
         int month = 0;
         int days = 0;
@@ -242,45 +243,76 @@ public class DateTimeMethods {
         int seconds = 0;
         int millis = 0;
 
-        if (patternSelection == 1) {
+        int periodBetweenTwoDatesInMillis = periodBetweenTwoDatesInMillis(startDate, finishDate);
             if (checkIsLeapYear(getYearPatternOne(startDate))) {
-
+                year = periodBetweenTwoDatesInMillis/(DAYS_IN_LEAP_YEAR * HOUR_IN_DAY * SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND);
             }
+            year = periodBetweenTwoDatesInMillis/(DAYS_IN_YEAR * HOUR_IN_DAY * SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND);
+            month = periodBetweenTwoDatesInMillis/(MONTH_IN_YEAR * HOUR_IN_DAY * SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND);
+            days = periodBetweenTwoDatesInMillis/ (MILLISECONDS_IN_HOUR * HOUR_IN_DAY);
+            hours = periodBetweenTwoDatesInMillis/ MILLISECONDS_IN_HOUR;
+            minutes = periodBetweenTwoDatesInMillis/ MILLISECONDS_IN_MINUTE;
+            seconds = periodBetweenTwoDatesInMillis/ MILLISECONDS_IN_SECOND;
+            millis = periodBetweenTwoDatesInMillis;
+
+            return "Period between two dates is: " + "\n" +
+                    "year: " + year + "\n" +
+                    "month: " + month + "\n" +
+                    "days: " + days + "\n" +
+                    "hours: " + hours + "\n" +
+                    "minutes: " + minutes + "\n" +
+                    "seconds: " + seconds + "\n" +
+                    "millis" + millis + "\n" ;
+
         }
-    }
+
+
 
     private static int findMonthCount(String month) throws MyException {
         switch (month) {
-            case JANUARY: return JANUARY.getMonthCount();
+            case JANUARY:
+                return JANUARY.getMonthCount();
             break;
-            case FEBRUARY: return FEBRUARY.getMonthCount();
+            case FEBRUARY:
+                return FEBRUARY.getMonthCount();
             break;
-            case MARCH: return MARCH.getMonthCount();
+            case MARCH:
+                return MARCH.getMonthCount();
             break;
-            case APRIL: return APRIL.getMonthCount();
+            case APRIL:
+                return APRIL.getMonthCount();
             break;
-            case MAY: return MAY.getMonthCount();
+            case MAY:
+                return MAY.getMonthCount();
             break;
-            case JUNE: return JUNE.getMonthCount();
+            case JUNE:
+                return JUNE.getMonthCount();
             break;
-            case JULY: return JULY.getMonthCount();
+            case JULY:
+                return JULY.getMonthCount();
             break;
-            case AUGUST: return AUGUST.getMonthCount();
+            case AUGUST:
+                return AUGUST.getMonthCount();
             break;
-            case SEPTEMBER: return SEPTEMBER.getMonthCount();
+            case SEPTEMBER:
+                return SEPTEMBER.getMonthCount();
             break;
-            case OCTOBER: return OCTOBER.getMonthCount();
+            case OCTOBER:
+                return OCTOBER.getMonthCount();
             break;
-            case NOVEMBER: return NOVEMBER.getMonthCount();
+            case NOVEMBER:
+                return NOVEMBER.getMonthCount();
             break;
-            case DECEMBER: return DECEMBER.getMonthCount();
+            case DECEMBER:
+                return DECEMBER.getMonthCount();
             break;
-            default: throw new MyException("Please enter correct month.");
+            default:
+                throw new MyException("Please enter correct month.");
         }
     }
 
     public static boolean checkIsLeapYear(int year) {
-        if (year%4 == 0) {
+        if (year % 4 == 0) {
             return true;
         }
         return false;

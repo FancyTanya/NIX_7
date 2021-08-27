@@ -17,6 +17,9 @@ public class DateTimeConstants {
     public final static int HOUR_IN_DAY = 24;
 
     public final static int DAYS_IN_YEAR = 365;
+    public final static int DAYS_IN_LEAP_YEAR = 366;
+
+    public final static int MONTH_IN_YEAR = 12;
 
     public final static int YEAR = 0;
 
