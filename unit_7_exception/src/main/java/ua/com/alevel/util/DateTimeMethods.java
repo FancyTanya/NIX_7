@@ -1,6 +1,7 @@
 package ua.com.alevel.util;
 
 import myException.MyException;
+import ua.com.alevel.timeObject.Month;
 import ua.com.alevel.timeObject.TimeObject;
 
 import static ua.com.alevel.controller.Controller.patternSelection;
@@ -114,7 +115,7 @@ public class DateTimeMethods {
             String[] split = inputTime.split("-");
             if (split.length != 0) {
                 if (split.length == 3) {
-                    month = findMonthCount(split[0]);
+                    month = findMonthCount(valueOf(split[0]));
                     days = Integer.parseInt(split[1]);
                     year = Integer.parseInt(split[2]);
                 }
@@ -147,7 +148,7 @@ public class DateTimeMethods {
             if (split.length != 0) {
                 if (split.length == 3) {
                     days = Integer.parseInt(split[0]);
-                    month = findMonthCount(split[1]);
+                    month = findMonthCount(valueOf(split[1]));
                     year = Integer.parseInt(split[2]);
                 }
             }
@@ -260,7 +261,7 @@ public class DateTimeMethods {
     }
 
 
-    private static int findMonthCount(String month) throws MyException {
+    private static int findMonthCount(Month month) throws MyException {
         switch (month) {
             case JANUARY:
                 return JANUARY.getMonthCount();
