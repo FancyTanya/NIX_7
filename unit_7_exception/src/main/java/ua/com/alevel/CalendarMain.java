@@ -1,9 +1,10 @@
 package ua.com.alevel;
 
-import ua.com.alevel.controller.Controller;
+import static ua.com.alevel.controller.Controller.setup;
 
 public class CalendarMain {
-    public static void main(String[] args) {
-        Controller.setup();
+    public static void main(String[] args)  {
+        setup();
+
     }
 }
