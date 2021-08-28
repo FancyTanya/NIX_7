@@ -13,7 +13,7 @@ public class Controller {
     public static int addSelection = 0;
 
 
-    public static void setup() {
+    public  void setup() {
         startMenu();
         if (patternSelection < 0 || patternSelection > 4) {
             System.out.println("Please, enter correct number");
@@ -168,7 +168,7 @@ public class Controller {
 
     }
 
-    public static void startMenu() {
+    public  void startMenu() {
         Scanner scanner = new Scanner(System.in);
         patternSelection = scanner.nextInt();
         System.out.println("------------------------------------");
@@ -181,7 +181,7 @@ public class Controller {
         System.out.println("------------------------------------");
     }
 
-    public static void menuWithFunctions() {
+    public  void menuWithFunctions() {
         Scanner scanner = new Scanner(System.in);
         methodsSelection = scanner.nextInt();
         System.out.println("------------------------------------");
@@ -194,7 +194,7 @@ public class Controller {
         System.out.println("------------------------------------");
     }
 
-    public static void menuAdditionTime() {
+    public  void menuAdditionTime() {
         Scanner scanner = new Scanner(System.in);
         addSelection = scanner.nextInt();
         System.out.println("------------------------------------");
