@@ -2,7 +2,6 @@ package ua.com.alevel.util;
 
 import myException.MyException;
 import ua.com.alevel.timeObject.Month;
-import ua.com.alevel.timeObject.TimeObject;
 
 import static ua.com.alevel.controller.Controller.patternSelection;
 import static ua.com.alevel.timeObject.Month.*;
