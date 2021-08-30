@@ -18,7 +18,7 @@ public class DateTimeConstants {
 
     public final static String PATTERN_DAY_MONTH_YEAR = "dd/mm/yy - 01/12/21";
     public final static String PATTERN_MONTH_DAY_YEAR = "m/d/yyyy - 3/4/2021";
-    public final static String PATTERN_MONTH_TITLE_DAY_YEAR = "mmm-d-yy - Март 4 21";
+    public final static String PATTERN_MONTH_TITLE_DAY_YEAR = "mmm-d-yy - March 4 21";
     public final static String PATTERN_DAY_MONTH_YEAR_HOUR_MINUTE = "dd-mmm-yyyy 00:00";
 
 }

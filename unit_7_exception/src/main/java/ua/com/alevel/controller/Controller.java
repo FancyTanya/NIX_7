@@ -169,7 +169,8 @@ public class Controller {
     }
 
     public  void startMenu() {
-        Scanner scanner = new Scanner(System.in);
+        String encoding = System.getProperty("console.encoding", "utf-8");
+        Scanner scanner = new Scanner(System.in, encoding);
         System.out.println("------------------------------------");
         System.out.println("Welcome to the Calendar Application!");
         System.out.println("Please select date format for processing");

@@ -6,18 +6,18 @@ import static ua.com.alevel.util.DateTimeConstants.YEAR;
 import static ua.com.alevel.util.DateTimeMethods.checkIsLeapYear;
 
 public enum Month  {
-    JANUARY("Январь", 31, 1),
-    FEBRUARY("Февраль", 28, 2),
-    MARCH("Март", 31, 3),
-    APRIL("Апрель", 30, 4),
-    MAY("Май", 31, 5),
-    JUNE("Июнь", 30, 6),
-    JULY("Июль", 31, 7),
-    AUGUST("Август", 31, 8),
-    SEPTEMBER("Сентябрь", 30, 9),
-    OCTOBER("Октябрь", 31, 10),
-    NOVEMBER("Ноябрь", 30, 11),
-    DECEMBER("Декабрь", 31, 12);
+    JANUARY("January", 31, 1),
+    FEBRUARY("February", 28, 2),
+    MARCH("March", 31, 3),
+    APRIL("April", 30, 4),
+    MAY("May", 31, 5),
+    JUNE("June", 30, 6),
+    JULY("July", 31, 7),
+    AUGUST("August", 31, 8),
+    SEPTEMBER("September", 30, 9),
+    OCTOBER("October", 31, 10),
+    NOVEMBER("November", 30, 11),
+    DECEMBER("December", 31, 12);
 
     private String name;
     private int daysCount;
