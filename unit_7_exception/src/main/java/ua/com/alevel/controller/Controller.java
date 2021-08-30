@@ -170,7 +170,6 @@ public class Controller {
 
     public  void startMenu() {
         Scanner scanner = new Scanner(System.in);
-        patternSelection = scanner.nextInt();
         System.out.println("------------------------------------");
         System.out.println("Welcome to the Calendar Application!");
         System.out.println("Please select date format for processing");
@@ -179,11 +178,11 @@ public class Controller {
         System.out.println(PATTERN_MONTH_TITLE_DAY_YEAR + " For select enter 3");
         System.out.println(PATTERN_DAY_MONTH_YEAR_HOUR_MINUTE + " For select enter 4");
         System.out.println("------------------------------------");
+        patternSelection = scanner.nextInt();
     }
 
     public  void menuWithFunctions() {
         Scanner scanner = new Scanner(System.in);
-        methodsSelection = scanner.nextInt();
         System.out.println("------------------------------------");
         System.out.println("Please, select a function for working with dates");
         System.out.println("Find time difference between dates. For select enter 1");
@@ -192,11 +191,11 @@ public class Controller {
         System.out.println("Compare list of dates in descending and ascending order. For select enter 4");
         System.out.println("If you want to return to the start menu enter 0");
         System.out.println("------------------------------------");
+        methodsSelection = scanner.nextInt();
     }
 
     public  void menuAdditionTime() {
         Scanner scanner = new Scanner(System.in);
-        addSelection = scanner.nextInt();
         System.out.println("------------------------------------");
         System.out.println("Please, select a function for working with dates");
         System.out.println("If you want to add a YEAR to the date, enter 1");
@@ -206,6 +205,7 @@ public class Controller {
         System.out.println("If you want to add a MINUTE to the date, enter 5");
         System.out.println("If you want to return to the start menu enter 0");
         System.out.println("------------------------------------");
+        addSelection = scanner.nextInt();
     }
 
 }
