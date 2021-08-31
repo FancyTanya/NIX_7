@@ -19,7 +19,6 @@ public class Controller {
             System.out.println("Please, enter correct number");
             startMenu();
         }
-
         menuWithFunctions();
         if (methodsSelection == 0) {
             startMenu();
@@ -54,7 +53,8 @@ public class Controller {
                 try {
                     addYearToDate(startDate, addition);
                 } catch (MyException e) {
-                    e.printStackTrace();
+                    System.out.println("Please, enter correct data");
+                    menuWithFunctions();
                 }
             }
             if (addSelection == 2) {
@@ -63,7 +63,8 @@ public class Controller {
                 try {
                     addMonthToDate(startDate, addition);
                 } catch (MyException e) {
-                    e.printStackTrace();
+                    System.out.println("Please, enter correct data");
+                    menuWithFunctions();
                 }
             }
             if (addSelection == 3) {
@@ -72,7 +73,8 @@ public class Controller {
                 try {
                     addDaysToDate(startDate, addition);
                 } catch (MyException e) {
-                    e.printStackTrace();
+                    System.out.println("Please, enter correct data");
+                    menuWithFunctions();
                 }
             }
             if (addSelection == 4) {
@@ -81,7 +83,8 @@ public class Controller {
                 try {
                     addHoursToDate(startDate, addition);
                 } catch (MyException e) {
-                    e.printStackTrace();
+                    System.out.println("Please, enter correct data");
+                    menuWithFunctions();
                 }
             }
             if (addSelection == 5) {
@@ -90,7 +93,8 @@ public class Controller {
                 try {
                     addMinutesToDate(startDate, addition);
                 } catch (MyException e) {
-                    e.printStackTrace();
+                    System.out.println("Please, enter correct data");
+                    menuWithFunctions();
                 }
             }
         }
@@ -112,7 +116,8 @@ public class Controller {
                 try {
                     addYearToDate(startDate, addition);
                 } catch (MyException e) {
-                    e.printStackTrace();
+                    System.out.println("Please, enter correct data");
+                    menuAdditionTime();
                 }
             }
             if (addSelection == 2) {
@@ -121,7 +126,8 @@ public class Controller {
                 try {
                     addMonthToDate(startDate, addition);
                 } catch (MyException e) {
-                    e.printStackTrace();
+                    System.out.println("Please, enter correct data");
+                    menuAdditionTime();
                 }
             }
             if (addSelection == 3) {
@@ -130,7 +136,8 @@ public class Controller {
                 try {
                     addDaysToDate(startDate, addition);
                 } catch (MyException e) {
-                    e.printStackTrace();
+                    System.out.println("Please, enter correct data");
+                    menuAdditionTime();
                 }
             }
             if (addSelection == 4) {
@@ -139,7 +146,8 @@ public class Controller {
                 try {
                     addHoursToDate(startDate, addition);
                 } catch (MyException e) {
-                    e.printStackTrace();
+                    System.out.println("Please, enter correct data");
+                    menuAdditionTime();
                 }
             }
             if (addSelection == 5) {
@@ -148,7 +156,8 @@ public class Controller {
                 try {
                     addMinutesToDate(startDate, addition);
                 } catch (MyException e) {
-                    e.printStackTrace();
+                    System.out.println("Please, enter correct data");
+                    menuAdditionTime();
                 }
             }
         }
@@ -161,7 +170,8 @@ public class Controller {
             try {
                 dateSorting(firstDate, secondDate);
             } catch (MyException e) {
-                e.printStackTrace();
+                System.out.println("Please, enter correct data");
+                menuAdditionTime();
             }
         }
 
@@ -179,6 +189,12 @@ public class Controller {
         System.out.println(PATTERN_MONTH_TITLE_DAY_YEAR + " For select enter 3");
         System.out.println(PATTERN_DAY_MONTH_YEAR_HOUR_MINUTE + " For select enter 4");
         System.out.println("------------------------------------");
+
+        while (!scanner.hasNextInt()) {
+            System.out.println("That is not a number!");
+            scanner.next();
+        }
+
         patternSelection = scanner.nextInt();
     }
 
@@ -192,6 +208,11 @@ public class Controller {
         System.out.println("Compare list of dates in descending and ascending order. For select enter 4");
         System.out.println("If you want to return to the start menu enter 0");
         System.out.println("------------------------------------");
+
+        while (!scanner.hasNextInt()) {
+            System.out.println("That is not a number!");
+            scanner.next();
+        }
         methodsSelection = scanner.nextInt();
     }
 
@@ -206,6 +227,11 @@ public class Controller {
         System.out.println("If you want to add a MINUTE to the date, enter 5");
         System.out.println("If you want to return to the start menu enter 0");
         System.out.println("------------------------------------");
+
+        while (!scanner.hasNextInt()) {
+            System.out.println("That is not a number!");
+            scanner.next();
+        }
         addSelection = scanner.nextInt();
     }
 
