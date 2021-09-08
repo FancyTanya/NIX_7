@@ -11,7 +11,7 @@ public class Controller {
         int capacity = 10;
         int[] firstSetNumbers;
         int[] secondSetNumbers;
-        private final MathSet[] sets = new MathSet[capacity];
+        private final  MathSet<Integer>[] sets = new MathSet[capacity];
         int numberFromConsole;
 
     public void start() {
