@@ -6,12 +6,12 @@ import java.io.InputStreamReader;
 
 import ua.com.alevel.util.MathSet;
 
-public class Controller {
+public class MathSetController {
         String position;
         int capacity = 10;
-        int[] firstSetNumbers;
-        int[] secondSetNumbers;
-        private final  MathSet<Integer>[] sets = new MathSet[capacity];
+    MathSet<Integer> firstSetNumbers;
+    MathSet<Integer>secondSetNumbers;
+        private final  MathSet<Integer> sets = new MathSet(capacity);
         int numberFromConsole;
 
     public void start() {
@@ -65,7 +65,7 @@ public class Controller {
                 addNumber(reader);
                 break;
             case "2":
-                setOfNumbers(reader);
+                join(reader);
                 break;
             case "3":
                 severalSets(reader);
@@ -81,6 +81,11 @@ public class Controller {
         firstSetNumbers = setOfNumbersFromConsole(reader);
         System.out.println("Please, enter the number to add to the set");
         sets.add(numberFromConsole(reader));
+    }
+
+    private void join(BufferedReader reader) {
+        severalSets(reader);
+
     }
 
     public void mathSetInitConstructor(String position, BufferedReader reader) {
@@ -123,12 +128,12 @@ public class Controller {
         setOfNumbersFromConsole(reader);
     }
 
-    private int[] setOfNumbersFromConsole(BufferedReader reader) {
+    private MathSet<Integer> setOfNumbersFromConsole(BufferedReader reader) {
         try {
             System.out.println("Please, enter SET of numbers");
             String inputNumbers = reader.readLine();
-            firstSetNumbers = new int[inputNumbers.length()];
-            for (int i = 0; i < firstSetNumbers.length; i++) {
+            firstSetNumbers = new MathSet<>(inputNumbers.length());
+            for (int i = 0; i < firstSetNumbers; i++) {
                 for (char value : inputNumbers.toCharArray()) {
                     firstSetNumbers[i] = Integer.parseInt(String.valueOf(value));
                 }

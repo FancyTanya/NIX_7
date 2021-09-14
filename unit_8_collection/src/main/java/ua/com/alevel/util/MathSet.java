@@ -16,17 +16,13 @@ public class MathSet<T extends Number> {
         this.mathSet = new Number[capacity];
     }
 
-    public MathSet(MathSet numbersSet) {
-        this.add(numbersSet.toArray());
+    public MathSet(T[] t) {
+        this.mathSet = new Number[t.length];
+        this.addArrayToMathSet(t);
     }
 
-    public MathSet(Number[] numbers) {
-        this.mathSet = new Number[numbers.length];
-        this.addArrayToMathSet(numbers);
-    }
-
-    public MathSet(Number[]... numbers) {
-        for (Number[] num : numbers) {
+    public MathSet(T[]... t) {
+        for (T[] num : t) {
             this.addArrayToMathSet(num);
         }
     }
@@ -63,8 +59,8 @@ public class MathSet<T extends Number> {
         addArrayToMathSet(number);
     }
 
-    private void addArrayToMathSet(Number[] numbers) {
-        for (Number num : numbers) {
+    private void addArrayToMathSet(T[] t) {
+        for (T num : t) {
             this.add(num);
         }
     }
