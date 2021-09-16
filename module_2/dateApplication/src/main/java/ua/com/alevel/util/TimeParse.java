@@ -7,9 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class TimeParse {
-    SimpleDateFormat formatYearFirst = new SimpleDateFormat("yyyy/MM/dd");
-    SimpleDateFormat formatDayFirst = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat formatMonthFirst = new SimpleDateFormat("MM-dd-yyyy");
+
     SimpleDateFormat formatOutput = new SimpleDateFormat("yyyyMMdd");
 
     List<String> formatStrings = Arrays.asList("yyyy/MM/dd", "dd/MM/yyyy", "MM-dd-yyyy");

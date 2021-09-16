@@ -11,6 +11,7 @@ public class Controller {
     public static int patternSelection = 0;
     public static int methodsSelection = 0;
     public static int addSelection = 0;
+    Scanner scanner = new Scanner(System.in);
 
 
     public  void setup() {
@@ -36,7 +37,7 @@ public class Controller {
             dateStringOutput(startDate, endDate);
         }
         if (methodsSelection == 2) {
-            Scanner scanner = new Scanner(System.in);
+
             System.out.println("Enter the start date for the calculation");
             String startDate = scanner.nextLine();
             menuAdditionTime();
@@ -99,7 +100,7 @@ public class Controller {
             }
         }
         if (methodsSelection == 3) {
-            Scanner scanner = new Scanner(System.in);
+
             System.out.println("Enter the start date for the calculation");
             String startDate = scanner.nextLine();
             menuAdditionTime();
@@ -162,7 +163,7 @@ public class Controller {
             }
         }
         if (methodsSelection == 4) {
-            Scanner scanner = new Scanner(System.in);
+
             System.out.println("Enter first date for sorting");
             String firstDate = scanner.nextLine();
             System.out.println("Enter second date for sorting");
