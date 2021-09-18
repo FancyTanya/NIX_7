@@ -30,7 +30,7 @@ public class ReadAndWriteFile {
         StringBuilder resultOutput = new StringBuilder();
         Map<String, Integer> cities = new HashMap<>();
         final String[] split = inputString.split("\n");
-        int valueCities = Integer.parseInt(split[0]);
+        int valueCities = Integer.parseInt(split[0].replaceAll("[^0-9]", ""));
         int[][] inputMatrix = new int[valueCities][valueCities];
         for (int i = 0; i < inputMatrix.length; i++) {
             for (int j = 0; j < inputMatrix[i].length; j++) {
