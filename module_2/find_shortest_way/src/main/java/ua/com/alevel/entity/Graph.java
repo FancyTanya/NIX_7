@@ -38,8 +38,8 @@ public class Graph {
         adjacencyMatrix[end][start] = cost;
     }
 
-    public void path() {
-        int startTree = startCity;
+    public void path(int[][] adjacencyMatrix) {
+        int startTree = 1;
         vertexList[startTree].isInTree = true;
         amountVertsInTree = 1;
         for (int i = 0; i < amountVertsInTree; i++) {
@@ -91,16 +91,18 @@ public class Graph {
         }
     }
 
-    public void displayPaths() {
+    public StringBuilder displayPaths() {
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < vertexAmount; i++) {
-            System.out.print(new StringBuilder().append(vertexList[i].cityName).append(" = ").toString());
+            result.append(vertexList[i].cityName).append(" = ");
             if (shortestPath[i].distance == INFINITY) {
-                System.out.print("INFINITY");
+                result.append("INFINITY");
             } else {
-                System.out.print(shortestPath[i].distance);
+                result.append(shortestPath[i].distance);
                 String parent = vertexList[shortestPath[i].parentVert].cityName;
-                System.out.print(" ( " + parent + " )");
+                result.append(" ( " + parent + " )");
             }
         }
+        return result;
     }
 }
