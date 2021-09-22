@@ -31,15 +31,25 @@ public class MathSetController {
         } catch (IOException e) {
             System.out.println("problem: = " + e.getMessage());
         }
-        functionalMenu();
+        try {
+            functionalMenu();
+            while ((position = reader.readLine()) != null) {
+                functionConstructor(position, reader);
+                position = reader.readLine();
+                if (position.equals("0")) {
+                    System.exit(0);
+                }
+                functionConstructor(position, reader);
+        }
+        } catch (IOException e) {
+            System.out.println("problem: = " + e.getMessage());
+        }
     }
 
     public void navigationMenu() {
         System.out.println("------------------------------------------");
         System.out.println("Hello. Let's make a math set!");
-        System.out.println("if you want to set CAPACITY of set, enter 1");
-        System.out.println("if you want to enter SET of numbers, enter 2");
-        System.out.println("if you want to enter  SEVERAL SETS of numbers, enter 3");
+        System.out.println("if you want to work with functions, enter 1");
         System.out.println("if you want exit, please enter 0");
         System.out.println("------------------------------------------");
     }
@@ -68,12 +78,30 @@ public class MathSetController {
                 join(reader);
                 break;
             case "3":
-                severalSets(reader);
+                descSort(reader);
+                break;
+            case "4":
+                ascSort(reader);
+                break;
+            case "5":
+                getMax(reader);
+                break;
+            case "6":
+                getMin(reader);
+                break;
+            case "7":
+                average(reader);
+                break;
+            case "8":
+                median(reader);
+                break;
+            case "9":
+                clear(reader);
                 break;
             case "0":
                 System.exit(0);
         }
-        navigationMenu();
+        functionalMenu();
     }
 
     private void addNumber(BufferedReader reader) {
@@ -81,28 +109,61 @@ public class MathSetController {
         firstSetNumbers = setOfNumbersFromConsole(reader);
         System.out.println("Please, enter the number to add to the set");
         sets.add(numberFromConsole(reader));
+        System.out.println(sets);
     }
 
     private void join(BufferedReader reader) {
         severalSets(reader);
+        sets.join(firstSetNumbers);
+        sets.join(secondSetNumbers);
+        System.out.println(sets);
+    }
 
+    private void descSort(BufferedReader reader) {
+        System.out.println("Please, enter set of Integers");
+        firstSetNumbers = setOfNumbersFromConsole(reader);
+        firstSetNumbers.sortDesc();
+        System.out.println(firstSetNumbers);
+    }
+
+    private void ascSort(BufferedReader reader) {
+        System.out.println("Please, enter set of Integers");
+        firstSetNumbers = setOfNumbersFromConsole(reader);
+        firstSetNumbers.sortAsc();
+        System.out.println(firstSetNumbers);
+    }
+
+    private void getMax(BufferedReader reader) {
+        System.out.println("Please, enter set of Integers");
+        firstSetNumbers = setOfNumbersFromConsole(reader);
+        Number max = firstSetNumbers.getMax();
+        System.out.println(max);
+    }
+
+    private void getMin(BufferedReader reader) {
+        sets.getMin();
+    }
+
+    private void average(BufferedReader reader) {
+        sets.getAverage();
+    }
+
+    private void median(BufferedReader reader) {
+        sets.getMedian();
+    }
+
+    private void clear(BufferedReader reader) {
+        sets.clear();
     }
 
     public void mathSetInitConstructor(String position, BufferedReader reader) {
         switch (position) {
             case "1":
-                capacity(reader);
-                break;
-            case "2":
-                setOfNumbers(reader);
-                break;
-            case "3":
-                severalSets(reader);
+                functionalMenu();
                 break;
             case "0":
                 System.exit(0);
         }
-        navigationMenu();
     }
 
     private void capacity(BufferedReader reader) {
@@ -131,12 +192,10 @@ public class MathSetController {
     private MathSet<Integer> setOfNumbersFromConsole(BufferedReader reader) {
         try {
             System.out.println("Please, enter SET of numbers");
-            String inputNumbers = reader.readLine();
-            firstSetNumbers = new MathSet<>(inputNumbers.length());
-            for (int i = 0; i < firstSetNumbers; i++) {
-                for (char value : inputNumbers.toCharArray()) {
-                    firstSetNumbers[i] = Integer.parseInt(String.valueOf(value));
-                }
+            String inputNumbers;
+            while ((inputNumbers = reader.readLine()) != null){
+                firstSetNumbers = new MathSet<>(inputNumbers.length());
+                firstSetNumbers.add(Integer.parseInt(inputNumbers));
             }
         } catch (IOException e) {
             System.err.println("Error: " + e);
@@ -152,6 +211,5 @@ public class MathSetController {
         System.out.print("Please, enter SECOND set of numbers. ");
         secondSetNumbers = setOfNumbersFromConsole(reader);
     }
-
 
 }
