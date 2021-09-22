@@ -4,6 +4,7 @@ import ua.com.alevel.controller.MathSetController;
 
 public class CollectionMain {
     public static void main(String[] args) {
-        new MathSetController().start();
+        MathSetController controller = new MathSetController();
+        controller.start();
     }
 }
