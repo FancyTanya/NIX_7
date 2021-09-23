@@ -72,26 +72,7 @@ public class Graph {
         return minIndex;
     }
 
-    public void renewShortestPath() {
-        int column = 1;
-        while (column < vertexAmount) {
-            if (vertexList[column].isInTree) {
-                column++;
-                continue;
-            }
-            int currentToColumn = adjacencyMatrix[currentVert][column];
-            int sumOfDistance = startToCurrent + currentToColumn;
-            int shortestDistance = shortestPath[column].distance;
-
-            if (sumOfDistance < shortestDistance) {
-                shortestPath[column].parentVert = currentVert;
-                shortestPath[column].distance = sumOfDistance;
-            }
-            column++;
-        }
-    }
-
-    public StringBuilder displayPaths() {
+    public String displayPaths() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < vertexAmount; i++) {
             result.append(vertexList[i].cityName).append(" = ");
@@ -103,6 +84,6 @@ public class Graph {
                 result.append(" ( " + parent + " )");
             }
         }
-        return result;
+        return result.toString();
     }
 }
