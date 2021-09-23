@@ -8,6 +8,7 @@ import ua.com.alevel.util.MathSet;
 
 public class MathSetController {
         String position;
+        String funcPosition;
         int capacity = 10;
     MathSet<Integer> firstSetNumbers;
     MathSet<Integer>secondSetNumbers;
@@ -33,13 +34,13 @@ public class MathSetController {
         }
         try {
             functionalMenu();
-            while ((position = reader.readLine()) != null) {
-                functionConstructor(position, reader);
-                position = reader.readLine();
-                if (position.equals("0")) {
+            while ((funcPosition = reader.readLine()) != null) {
+                functionConstructor(funcPosition, reader);
+                funcPosition = reader.readLine();
+                if (funcPosition.equals("0")) {
                     System.exit(0);
                 }
-                functionConstructor(position, reader);
+                functionConstructor(funcPosition, reader);
         }
         } catch (IOException e) {
             System.out.println("problem: = " + e.getMessage());
@@ -69,8 +70,8 @@ public class MathSetController {
         System.out.println("------------------------------------------");
     }
 
-    public void functionConstructor(String position, BufferedReader reader) {
-        switch (position) {
+    public void functionConstructor(String funcPosition, BufferedReader reader) {
+        switch (funcPosition) {
             case "1":
                 addNumber(reader);
                 break;
@@ -141,19 +142,28 @@ public class MathSetController {
     }
 
     private void getMin(BufferedReader reader) {
-        sets.getMin();
+        System.out.println("Please, enter set of Integers");
+        firstSetNumbers = setOfNumbersFromConsole(reader);
+        firstSetNumbers.getMin();
     }
 
     private void average(BufferedReader reader) {
-        sets.getAverage();
+        System.out.println("Please, enter set of Integers");
+        firstSetNumbers = setOfNumbersFromConsole(reader);
+        firstSetNumbers.getAverage();
     }
 
     private void median(BufferedReader reader) {
-        sets.getMedian();
+        System.out.println("Please, enter set of Integers");
+        firstSetNumbers = setOfNumbersFromConsole(reader);
+        firstSetNumbers.getMedian();
     }
 
     private void clear(BufferedReader reader) {
-        sets.clear();
+        System.out.println("Please, enter set of Integers");
+        firstSetNumbers = setOfNumbersFromConsole(reader);
+        firstSetNumbers.clear();
+        System.out.println("Set = " + firstSetNumbers);
     }
 
     public void mathSetInitConstructor(String position, BufferedReader reader) {
