@@ -4,6 +4,11 @@ import java.util.Arrays;
 
 public class MathSet<T extends Number> {
     private final static int DEFAULT_CAPACITY = 10;
+
+    public int getSize() {
+        return size;
+    }
+
     private int size;
     private Number[] mathSet;
     private static final int MULTIPLIER = 2;
@@ -148,6 +153,13 @@ public class MathSet<T extends Number> {
 
     public Number[] toArray() {
         return  Arrays.copyOfRange(this.mathSet, 0, size);
+    }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "MathSet{" +
+                "mathSet=" + java.util.Arrays.toString(mathSet) +
+                '}';
     }
 
     public void clear() {
