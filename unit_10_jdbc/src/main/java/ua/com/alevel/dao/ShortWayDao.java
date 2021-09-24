@@ -86,10 +86,27 @@ public class ShortWayDao {
         return problems;
     }
 
+    public int insertSolutions(Solution solution) {
+        Connection connection = null;
+        PreparedStatement statement = null;
 
+        try {
+            connection = DriverManager.getConnection(url, props);
+            int result = statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
 
-
-
+            if (resultSet.next()) {
+                solution.setProblemId(resultSet.getInt(1));
+            }
+            return result;
+        } catch (SQLException e) {
+            logger.warn(e.getMessage());
+            throw new RuntimeException();
+        } finally {
+            close(statement);
+            close(connection);
+        }
+    }
 
     private static Properties loadProperties() {
         Properties properties = new Properties();
@@ -107,7 +124,7 @@ public class ShortWayDao {
             try {
                 con.close();
             } catch (SQLException e) {
-                // e.printStackTrace();
+                logger.warn(e.getMessage());
                 throw new RuntimeException(e);
             }
         }
@@ -118,7 +135,7 @@ public class ShortWayDao {
             try {
                 stmt.close();
             } catch (SQLException e) {
-                // e.printStackTrace();
+                logger.warn(e.getMessage());
                 throw new RuntimeException(e);
             }
         }
