@@ -1,5 +1,6 @@
 package ua.com.alevel.entity;
 
+import java.util.HashMap;
 
 public class Graph {
 
@@ -38,7 +39,8 @@ public class Graph {
         adjacencyMatrix[end][start] = cost;
     }
 
-    public void path(int[][] adjacencyMatrix) {
+    public int path() {
+        int minDistance = 0;
         int startTree = 1;
         vertexList[startTree].isInTree = true;
         amountVertsInTree = 1;
@@ -48,7 +50,7 @@ public class Graph {
         }
         while (amountVertsInTree < vertexAmount) {
             int indexMin = getMin();
-            int minDistance = shortestPath[indexMin].distance;
+            minDistance = shortestPath[indexMin].distance;
 
             if (minDistance == INFINITY) {
                 System.out.println("There are unreachable vertices");
@@ -59,6 +61,7 @@ public class Graph {
             }
             vertexList[currentVert].isInTree = false;
         }
+        return minDistance;
     }
 
     public int getMin() {
@@ -85,5 +88,13 @@ public class Graph {
             }
         }
         return result.toString();
+    }
+
+    public HashMap<String,Integer> mapOfVertexAndMinDistance() {
+        HashMap<String,Integer> result = new HashMap<>();
+        for (int i = 0; i < vertexAmount; i++) {
+            result.put(vertexList[i].cityName, shortestPath[i].distance);
+        }
+        return result;
     }
 }

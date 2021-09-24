@@ -1,22 +1,18 @@
 package ua.com.alevel.model;
 
 public class Location {
-    private int id;
+    private static int id;
     private String name;
 
     Location() {}
 
-    Location(int id, String name) {
-        this.id = id;
+    public Location(String name) {
+        id++;
         this.name = name;
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

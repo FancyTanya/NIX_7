@@ -1,17 +1,13 @@
 package ua.com.alevel.model;
 
 public class Route {
-    private int id;
+    private  int id;
     private int fromId;
     private int toId;
     private int cost;
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getFromId() {
@@ -41,10 +37,14 @@ public class Route {
     public Route() {
     }
 
-    public Route(int id, int fromId, int toId, int cost) {
-        this.id = id;
+    public Route(int fromId, int toId, int cost) {
+        id =(int) System.currentTimeMillis();
         this.fromId = fromId;
         this.toId = toId;
-        this.cost = cost;
+        if (cost > 0 && cost < 200000) {
+            this.cost = cost;
+        }
     }
+
+
 }
