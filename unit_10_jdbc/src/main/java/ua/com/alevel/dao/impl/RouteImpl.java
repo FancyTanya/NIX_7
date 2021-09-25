@@ -2,13 +2,11 @@ package ua.com.alevel.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ua.com.alevel.ShortWayMain;
 import ua.com.alevel.dao.DAO;
 import ua.com.alevel.model.Route;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLData;
 import java.sql.SQLException;
 
 public class RouteImpl implements DAO {
@@ -44,13 +42,6 @@ public class RouteImpl implements DAO {
 
     @Override
     public Object read(Object o) {
-        final Route result = new Route();
-        result.setId(-1);
-
-    //    try (PreparedStatement statement = connection.prepareStatement())
-        {
-
-        }
         return null;
     }
 

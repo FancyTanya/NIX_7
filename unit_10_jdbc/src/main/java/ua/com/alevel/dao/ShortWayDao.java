@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
-
 public class ShortWayDao {
     private static ShortWayDao instance;
     public Graph graph = new Graph();
@@ -24,7 +23,6 @@ public class ShortWayDao {
 
     Properties props = loadProperties();
     String url = props.getProperty("url");
-
 
     private static final String DELETE = "DELETE FROM user WHERE id=?";
     private static final String FIND_ALL = "SELECT * FROM ";
@@ -71,15 +69,15 @@ public class ShortWayDao {
                     problems.add(problem);
                 }
             } catch (SQLException e) {
+                connection.rollback();
+                logger.warn(e.getMessage());
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
             connection.rollback();
             logger.warn(e.getMessage());
             throw new RuntimeException(e);
-        }
-          } catch (SQLException e) {
-        connection.rollback();
-        logger.warn(e.getMessage());
-        throw new RuntimeException(e);
-    } finally {
+        } finally {
             close(statement);
             close(connection);
         }
@@ -110,8 +108,7 @@ public class ShortWayDao {
 
     private static Properties loadProperties() {
         Properties properties = new Properties();
-        try (InputStream input = ShortWayMain.class.getResourceAsStream("/jdbc.properties"))
-        {
+        try (InputStream input = ShortWayMain.class.getResourceAsStream("/jdbc.properties")) {
             properties.load(input);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
