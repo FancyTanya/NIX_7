@@ -5,6 +5,12 @@ public class Problem {
     private int fromId;
     private int toId;
 
+    public Problem(int id, int fromId, int toId) {
+        this.id = id;
+        this.fromId = fromId;
+        this.toId = toId;
+    }
+
     public int getId() {
         return id;
     }

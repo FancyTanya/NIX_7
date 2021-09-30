@@ -12,17 +12,17 @@ import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
 public class ShortWayDao {
-    private static ShortWayDao instance;
-    public Graph graph = new Graph();
+    public ShortWayDao shortWayDao = new ShortWayDao();
     private static final Logger logger = LoggerFactory.getLogger(ShortWayMain.class);
 
     Properties props = loadProperties();
     String url = props.getProperty("url");
+    Connection connection ;
+    Statement statement ;
 
     private static final String DELETE = "DELETE FROM user WHERE id=?";
     private static final String FIND_ALL = "SELECT * FROM ";
@@ -31,30 +31,12 @@ public class ShortWayDao {
     private static final String INSERT = "INSERT INTO solutions(cost) VALUES(?)";
     private static final String UPDATE = "UPDATE routes SET from_id=?, to_id=?, cost=? WHERE id=?";
 
-    private ShortWayDao() {
-        super();
-    }
-
-    Properties properties = loadProperties();
-
-    public static ShortWayDao getInstance() {
-        if (instance == null) {
-            instance = new ShortWayDao();
-        }
-        return instance;
-    }
-
-    public HashMap shortWayPath() {
-        return graph.mapOfVertexAndMinDistance();
-    }
 
     public List<Problem> findAllProblems() throws SQLException {
 
         List<Problem> problems = new ArrayList<>();
-        Connection connection = null;
-        Statement statement = null;
-        try {
-            connection = DriverManager.getConnection(url, props);
+
+        try(Connection connection = DriverManager.getConnection(url, props)) {
             connection.setAutoCommit(false);
             try {
                 statement = connection.createStatement();
@@ -77,19 +59,15 @@ public class ShortWayDao {
             connection.rollback();
             logger.warn(e.getMessage());
             throw new RuntimeException(e);
-        } finally {
-            close(statement);
-            close(connection);
         }
         return problems;
     }
 
     public int insertSolutions(Solution solution) {
-        Connection connection = null;
         PreparedStatement statement = null;
 
-        try {
-            connection = DriverManager.getConnection(url, props);
+        try(Connection connection = DriverManager.getConnection(url, props)) {
+
             int result = statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
 
@@ -100,9 +78,6 @@ public class ShortWayDao {
         } catch (SQLException e) {
             logger.warn(e.getMessage());
             throw new RuntimeException();
-        } finally {
-            close(statement);
-            close(connection);
         }
     }
 
@@ -116,27 +91,27 @@ public class ShortWayDao {
         return properties;
     }
 
-    private static void close(Connection con) {
-        if (con != null) {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                logger.warn(e.getMessage());
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    private static void close(Statement stmt) {
-        if (stmt != null) {
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                logger.warn(e.getMessage());
-                throw new RuntimeException(e);
-            }
-        }
-    }
+//    private static void close(Connection con) {
+//        if (con != null) {
+//            try {
+//                con.close();
+//            } catch (SQLException e) {
+//                logger.warn(e.getMessage());
+//                throw new RuntimeException(e);
+//            }
+//        }
+//    }
+//
+//    private static void close(Statement stmt) {
+//        if (stmt != null) {
+//            try {
+//                stmt.close();
+//            } catch (SQLException e) {
+//                logger.warn(e.getMessage());
+//                throw new RuntimeException(e);
+//            }
+//        }
+//    }
 }
 
 

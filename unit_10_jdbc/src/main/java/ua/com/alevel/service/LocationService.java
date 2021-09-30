@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LocationService {
-    private ShortWayDao shortWayDao = ShortWayDao.getInstance();
+    private ShortWayDao shortWayDao = new ShortWayDao();
     List<Location> locations = new ArrayList<>();
     Location location;
     Graph graph;
