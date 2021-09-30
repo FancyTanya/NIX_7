@@ -2,10 +2,13 @@ package ua.com.alevel.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ua.com.alevel.AppProperties;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 public class FileService {
@@ -23,6 +26,12 @@ public class FileService {
         return properties;
     }
 
-    public void setFields() {
+    public AppProperties setFields() throws ClassNotFoundException
+            , NoSuchMethodException, InvocationTargetException
+            , InstantiationException, IllegalAccessException {
+        Class appPropClass = Class.forName("ua.com.alevel.AppProperties");
+        Constructor<AppProperties> constructor = appPropClass.getConstructor();
+        AppProperties appProperties = constructor.newInstance();
+        appProperties.
     }
 }

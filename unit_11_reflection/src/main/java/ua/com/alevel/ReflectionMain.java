@@ -24,7 +24,7 @@ public class ReflectionMain {
         }
 
         for (Object obj: properties.entrySet()) {
-            System.out.println(obj);
+
         }
     }
 }
