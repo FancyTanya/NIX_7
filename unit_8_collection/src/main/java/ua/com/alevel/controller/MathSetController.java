@@ -28,6 +28,7 @@ public class MathSetController {
                     System.exit(0);
                 }
                 mathSetInitConstructor(position,reader);
+
             }
         } catch (IOException e) {
             System.out.println("problem: = " + e.getMessage());

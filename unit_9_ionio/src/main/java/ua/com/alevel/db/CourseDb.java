@@ -1,11 +1,11 @@
 package ua.com.alevel.db;
 
-import lombok.NoArgsConstructor;
+
 import ua.com.alevel.entity.Course;
 
 import java.util.UUID;
 
-@NoArgsConstructor
+
 public class CourseDb {
 
     private static CourseDb instance;
