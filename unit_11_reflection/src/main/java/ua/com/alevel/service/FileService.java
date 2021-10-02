@@ -1,59 +1,97 @@
 package ua.com.alevel.service;
 
-
-import ua.com.alevel.AppProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.com.alevel.PropertyKey;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class FileService {
+public class FileService<T> {
 
-    public void setFields() throws ClassNotFoundException, IOException, IllegalAccessException {
-        Properties properties = new Properties();
-        InputStream input = FileService.class.getResourceAsStream("/appProperties.properties");
-        if (input != null) {
-            properties.load(input);
-        } else {
-            throw new FileNotFoundException("file not founded");
+    private final static Logger logger = LoggerFactory.getLogger(FileService.class);
+
+    public T map(Class<T> targetType, Properties properties) {
+
+        Field[] fields = targetType.getDeclaredFields();
+        String propertyName;
+        T t = null;
+
+        try {
+            t = targetType.getDeclaredConstructor().newInstance();
+        } catch (InstantiationException e) {
+            logger.warn(e.getMessage());
+        } catch (IllegalAccessException e) {
+            logger.warn(e.getMessage());
+        } catch (InvocationTargetException e) {
+            logger.warn(e.getMessage());
+        } catch (NoSuchMethodException e) {
+            logger.warn(e.getMessage());
         }
-        Field[] annotatedFields = findAnnotatedFields(Class.forName("ua.com.alevel.AppProperties"), PropertyKey.class);
-        for (Field field: annotatedFields) {
-            if (field.getType() == String.class) {
-                    field.set(AppProperties.class, properties.getProperty("property.string"));
-            }
-            if (field.getType() == int.class) {
-                field.set(AppProperties.class, properties.getProperty("property.int"));
-            }
-            if (field.getType() == long.class) {
-                field.set(AppProperties.class, properties.getProperty("property.long"));
-            }
-            if (field.getType() == double.class) {
-                field.set(AppProperties.class, properties.getProperty("property.double"));
-            }
-            if (field.getType() == char.class) {
-                field.set(AppProperties.class, properties.getProperty("property.char"));
-            }
-            if (field.getType() == boolean.class) {
-                field.set(AppProperties.class, properties.getProperty("property.boolean"));
+        for (Field field: fields) {
+            propertyName = field.getAnnotation(PropertyKey.class).value();
+            if (properties.containsKey(propertyName)) {
+                if (field.getType() == String.class) {
+                    try {
+                        field.set(t, properties.getProperty(propertyName));
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
+                if (field.getType() == int.class) {
+                    try {
+                        field.setInt(t, Integer.parseInt(properties.getProperty(propertyName)));
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
+                if (field.getType() == long.class) {
+                    try {
+                        field.setLong(t, Long.parseLong(properties.getProperty(propertyName)));
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
+                if (field.getType() == double.class) {
+                    try {
+                        field.setDouble(t, Double.parseDouble(properties.getProperty(propertyName)));
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
+                if (field.getType() == char.class) {
+                    try {
+                        field.setChar(t, properties.getProperty(propertyName).charAt(0));
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
+                if (field.getType() == boolean.class) {
+                    try {
+                        field.setBoolean(t, Boolean.getBoolean(properties.getProperty(propertyName)));
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
             }
         }
+        return t;
     }
 
+    public Properties getProperties() {
+        Properties properties = new Properties();
 
-    public static Field[] findAnnotatedFields(Class<?> clazz, Class<? extends Annotation> annotationClass) {
-        Field[] declaredFields = clazz.getDeclaredFields();
-        List<Field> annotatedFields = new ArrayList<>(declaredFields.length);
-        for (Field field: declaredFields) {
-            if (field.isAnnotationPresent(annotationClass)) {
-                annotatedFields.add(field);
-            }
+        try(InputStream input = FileService.class.getResourceAsStream("/appProperties.properties")) {
+            properties.containsKey(input);
+        } catch (IOException e) {
+            logger.warn(e.getMessage());
         }
-        return annotatedFields.toArray(new Field[annotatedFields.size()]);
+        return properties;
     }
 }

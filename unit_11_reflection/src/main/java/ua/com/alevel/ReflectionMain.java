@@ -16,16 +16,9 @@ public class ReflectionMain {
 
     public static void main(String[] args) {
 
-        FileService properties = new FileService();
-        try {
-            properties.setFields();
-        } catch (ClassNotFoundException e) {
-            logger.warn(e.getMessage());
-        } catch (IOException e) {
-            logger.warn(e.getMessage());
-        } catch (IllegalAccessException e) {
-            logger.warn(e.getMessage());
-        }
+        FileService fileService = new FileService();
+        Properties properties = new FileService<>().getProperties();
+        AppProperties appProperties = (AppProperties) fileService.map(AppProperties.class, properties);
 
     }
 }
