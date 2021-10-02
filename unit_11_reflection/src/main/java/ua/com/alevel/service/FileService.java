@@ -88,7 +88,7 @@ public class FileService<T> {
         Properties properties = new Properties();
 
         try(InputStream input = FileService.class.getResourceAsStream("/appProperties.properties")) {
-            properties.containsKey(input);
+            properties.load(input);
         } catch (IOException e) {
             logger.warn(e.getMessage());
         }

@@ -5,9 +5,11 @@ import ua.com.alevel.model.Solution;
 
 public class SolutionService {
     private SolutionDao solutionDao;
-    private Solution solution = new Solution();
+    private Solution solution;
 
-    public void setSolutionToDB() {
+    public Solution setSolutionToDB() {
+
         solutionDao.insert(solution);
+        return new Solution();
     }
 }

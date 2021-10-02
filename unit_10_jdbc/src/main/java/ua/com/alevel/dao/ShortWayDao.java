@@ -24,13 +24,7 @@ public class ShortWayDao {
     Connection connection ;
     Statement statement ;
 
-    private static final String DELETE = "DELETE FROM user WHERE id=?";
     private static final String FIND_ALL = "SELECT * FROM ";
-    private static final String FIND_BY_ID = "SELECT * FROM problems WHERE id=?";
-    private static final String FIND_BY_NAME = "SELECT * FROM locations WHERE name=?";
-    private static final String INSERT = "INSERT INTO solutions(cost) VALUES(?)";
-    private static final String UPDATE = "UPDATE routes SET from_id=?, to_id=?, cost=? WHERE id=?";
-
 
     public List<Problem> findAllProblems() throws SQLException {
 

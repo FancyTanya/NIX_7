@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.com.alevel.dao.*;
 import ua.com.alevel.model.Problem;
+import ua.com.alevel.model.Solution;
 import ua.com.alevel.service.GraphService;
 import ua.com.alevel.service.SolutionService;
 
@@ -32,7 +33,7 @@ public class ShortWayMain {
             problemDao = new ProblemDao(connection);
             List<Problem> allProblems = problemDao.findAll();
             HashMap mapCityAndMinDistance = graphService.startGraphService();
-            solutionService.setSolutionToDB();
+            var solution = solutionService.setSolutionToDB();
 
         } catch (SQLException e) {
             logger.warn(e.getMessage());

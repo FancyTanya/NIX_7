@@ -17,8 +17,8 @@ public class ReflectionMain {
     public static void main(String[] args) {
 
         FileService fileService = new FileService();
-        Properties properties = new FileService<>().getProperties();
+        Properties properties = new FileService().getProperties();
         AppProperties appProperties = (AppProperties) fileService.map(AppProperties.class, properties);
-
+        System.out.println(appProperties);
     }
 }

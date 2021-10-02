@@ -15,5 +15,15 @@ public class AppProperties {
     @PropertyKey("property.boolean")
     public boolean booleanValue;
 
-
+    @Override
+    public String toString() {
+        return "AppProperties{" +
+                "stringValue='" + stringValue + '\'' +
+                ", intValue=" + intValue +
+                ", longValue=" + longValue +
+                ", doubleValue=" + doubleValue +
+                ", charValue=" + charValue +
+                ", booleanValue=" + booleanValue +
+                '}';
+    }
 }

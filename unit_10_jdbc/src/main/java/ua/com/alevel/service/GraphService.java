@@ -18,18 +18,20 @@ public class GraphService {
     private LocationService locationService;
     private RouteDao routeDao;
     private ProblemDao problemDao;
-    private final GraphService graphService = new GraphService();
+    private GraphService graphService;
 
-    public void addEdgeToGraph() {
+    public Graph addEdgeToGraph() {
         for (Route route : problemDao.routesForSolution()) {
             graph.addEdge(route.getFromId(), route.getToId(), route.getCost());
         }
+        return graph;
     }
 
-    public void addVertexToGraph() {
+    public Graph addVertexToGraph() {
         for (Location location : locationService.findAll()) {
             graph.addVertex(location.getName());
         }
+        return graph;
     }
 
     public HashMap shortWayPath() {
@@ -37,7 +39,7 @@ public class GraphService {
     }
 
     public HashMap startGraphService() {
-        graphService.addEdgeToGraph();
+        var graph = graphService.addEdgeToGraph();
         graphService.addVertexToGraph();
         HashMap shortWayPathMap = graphService.shortWayPath();
         return shortWayPathMap;
