@@ -6,9 +6,11 @@ import ua.com.alevel.service.Mapper;
 import ua.com.alevel.service.ParserCSV;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class MapperMain {
     public static void main(String[] args) {
+
         ParserCSV parserCSV = new ParserCSV();
         Mapper mapper = new Mapper();
         Table table = parserCSV.parse(args[0]);
