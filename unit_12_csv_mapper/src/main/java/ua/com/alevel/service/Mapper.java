@@ -1,66 +1,103 @@
 package ua.com.alevel.service;
 
-import ua.com.alevel.annotation.MapperCSV;
-import ua.com.alevel.entity.User;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.annotation.Annotation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ua.com.alevel.entity.Table;
+
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-public class Mapper {
+public class Mapper<T> {
+    private final static Logger logger = LoggerFactory.getLogger(Mapper.class);
 
-    public static Field[] findAnnotatedFields(Class<?> clazz, Class<? extends Annotation> annotationClass) {
-        Field[] declaredFields = clazz.getDeclaredFields();
-        List<Field> annotatedFields = new ArrayList<>(declaredFields.length);
-        for (Field field: declaredFields) {
-            if (field.isAnnotationPresent(annotationClass)) {
-                annotatedFields.add(field);
-            }
+    public List<T> getObject(Class<T> clazz,Table table) {
+        List<String> header = table.getHeader();
+        List<String> rows = table.getRows();
+        List<T> list = new ArrayList<>();
+        Map<String,Integer> fieldNames = getMapFieldNames(header);
+        for (String row: rows) {
+            list.add(getObjectFromString(clazz, row, fieldNames));
         }
-        return annotatedFields.toArray(new Field[annotatedFields.size()]);
+        return list;
     }
 
-    public void setFields(String pathFile) throws ClassNotFoundException, IOException, IllegalAccessException {
-        Properties properties = new Properties();
-        InputStream input = Mapper.class.getResourceAsStream(pathFile);
-        if (input != null) {
-            properties.load(input);
-        } else {
-            throw new FileNotFoundException("file not founded");
+    private static Map<String,Integer> getMapFieldNames(List<String> fieldNames) {
+        Map<String, Integer> mapNames = new HashMap<>();
+        for (int i = 0; i < fieldNames.size(); i++) {
+            mapNames.put(fieldNames.get(i), i);
         }
-
-        for(Field field: User.class.getFields()) {
-            MapperCSV mapper = field.getAnnotation(MapperCSV.class);
-            if (mapper != null) {
-
-            }
-        }
-        Field[] annotatedFields = findAnnotatedFields(Class.forName("ua.com.alevel.AppProperties"), MapperCSV.class);
-        for (Field field: annotatedFields) {
-            if (field.getType() == String.class) {
-                field.set(User.class, properties.getProperty("property.string"));
-            }
-            if (field.getType() == int.class) {
-                field.set(User.class, properties.getProperty("property.int"));
-            }
-            if (field.getType() == long.class) {
-                field.set(User.class, properties.getProperty("property.long"));
-            }
-            if (field.getType() == double.class) {
-                field.set(User.class, properties.getProperty("property.double"));
-            }
-            if (field.getType() == char.class) {
-                field.set(User.class, properties.getProperty("property.char"));
-            }
-            if (field.getType() == boolean.class) {
-                field.set(User.class, properties.getProperty("property.boolean"));
-            }
-        }
+        return mapNames;
     }
 
+    private T getObjectFromString(Class<T> clazz, String csvString, Map<String ,Integer> fieldNames) {
+        Field[] fields = clazz.getDeclaredFields();
+        T t = null;
+        String[] values = csvString.split(",");
+
+        try {
+            t = (T)clazz.getDeclaredConstructor().newInstance();
+        } catch (InstantiationException e) {
+            logger.warn(e.getMessage());
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            logger.warn(e.getMessage());
+        } catch (NoSuchMethodException e) {
+            logger.warn(e.getMessage());
+        }
+        for (Field field:fields) {
+            int index = fieldNames.get(field.getName());
+            String value = values[index].trim();
+                if (field.getType() == String.class) {
+                    try {
+                        field.set(t, value);
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
+                if (field.getType() == int.class) {
+                    try {
+                        field.setInt(t, Integer.parseInt(value));
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
+                if (field.getType() == double.class) {
+                    try {
+                        field.setDouble(t, Double.parseDouble(value));
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
+                if (field.getType() == float.class) {
+                    try {
+                        field.setFloat(t, Float.parseFloat(value));
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
+                if (field.getType() == char.class) {
+                    try {
+                        field.setChar(t, value.charAt(0));
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
+                if (field.getType() == boolean.class) {
+                    try {
+                        field.setBoolean(t, Boolean.parseBoolean(value));
+                    } catch (IllegalAccessException e) {
+                        logger.warn(e.getMessage());
+                    }
+                }
+
+            }
+        return t;
+    }
 }

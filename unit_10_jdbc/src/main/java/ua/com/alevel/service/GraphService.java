@@ -39,7 +39,7 @@ public class GraphService {
     }
 
     public HashMap startGraphService() {
-        var graph = graphService.addEdgeToGraph();
+        Graph graph = graphService.addEdgeToGraph();
         graphService.addVertexToGraph();
         HashMap shortWayPathMap = graphService.shortWayPath();
         return shortWayPathMap;

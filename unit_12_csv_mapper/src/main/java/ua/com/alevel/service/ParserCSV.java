@@ -17,16 +17,16 @@ public class ParserCSV {
 
     private static final Logger logger = LoggerFactory.getLogger(ParserCSV.class);
 
-    public Table readFile(String fileName) {
+    public Table parse(String path) {
         Table table = new Table();
         List<String> header = new ArrayList<>();
         List<String>  rows = new ArrayList<>();
         String lineRead;
-        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            if (Files.notExists(Path.of(fileName))) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(path)))) {
+            if (Files.notExists(Path.of(String.valueOf(path)))) {
                 throw new FileNotFoundException();
             }
-            lineRead = Files.readString(Paths.get(fileName)).trim();
+            lineRead = Files.readString(Paths.get(String.valueOf(path))).trim();
             String[] split = lineRead.split("\n");
             String[] firstLine = split[0].replaceAll("\r", "").trim().split(",");
             header = Arrays.asList(firstLine);
