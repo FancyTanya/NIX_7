@@ -1,100 +1,20 @@
-package ua.com.alevel.dao;
+package main.java.ua.com.alevel.dao;
 
-import ua.com.alevel.db.ArrayDB;
-import ua.com.alevel.entity.Course;
+import main.java.ua.com.alevel.entity.Course;
 
-import java.util.UUID;
+public interface CourseDao {
 
-import static java.util.Arrays.copyOf;
+    Course getCourseById(int id);
 
-public class CourseDao {
+    void createCourse(Course course);
 
-    ArrayDB arrayDB = ArrayDB.getInstance();
-    private Course[] courses = arrayDB.getCourse();
+    void deleteCourseById(int id);
 
-    private static final CourseDao instance = new CourseDao();
+    void updateCourse(Course course);
 
-    public static CourseDao getInstance() {
-        return instance;
-    }
+    void updateCourse(Course course, int[] studentListIds);
 
-    public String create(Course course) {
-        for (Course value: courses) {
-            if (value != null) {
-                if (value.getTitle().equals(course.getTitle())) {
-                    course.setId(value.getId());
-                    return course.getId();
-                }
-            }
-        }
-        course.setId(generateId());
-        courses = copyOf(courses, courses.length);
-        courses[courses.length - 1] = course;
-        return course.getId();
-    }
+    Course[] getCoursesListByStudentId(int studentId);
 
-    public void update(Course course) {
-        for (Course value: courses) {
-            if (value != null) {
-                if (value.getTitle().equals(course.getTitle())) {
-                    course.setId(course.getId());
-                    return;
-                }
-            }
-        }
-        Course inDbCourse = findCourseById(course.getId());
-        inDbCourse.setTitle(course.getTitle());
-    }
-
-
-    public void delete(String id) {
-        for (int i = 0; i < courses.length; i++) {
-            if (courses[i].getId().equals(id)) {
-                courses[i].isNotActive();
-            }
-        }
-    }
-
-    public Course findCourseById(String id) throws NullPointerException{
-        if (courses.length > 0) {
-            for (Course value: courses) {
-                if (value == null) {
-                    break;
-                }
-                if (value.getId().equals(id)) {
-                    return value;
-                }
-            }
-        }
-        return null;
-    }
-
-    public Course findIdByFullTitle(String title) {
-        for (Course value: courses) {
-            if (value.getTitle().equals(title)) {
-                return value;
-            }
-        }
-        return null;
-    }
-
-    public Course[] findAllActiveCourses() {
-        Course[] activeCourses = new Course[courses.length];
-        for (int i = 0; i < courses.length; i++) {
-            if (courses[i].isActive()) {
-                courses[i] = activeCourses[i];
-            }
-        }
-        return activeCourses;
-    }
-
-    public String generateId() {
-        String id = UUID.randomUUID().toString();
-        for (Course course: courses) {
-            if (course.getId().equals(id)) {
-                return generateId();
-            }
-        }
-        return id;
-    }
+    Course[] getAllCourses();
 }

@@ -1,38 +1,21 @@
-package ua.com.alevel.entity;
+package main.java.ua.com.alevel.entity;
 
-public class Course {
-    private String title;
-    private String id;
-    private boolean isActive;
 
-    public static void setTitle() {
+import ua.com.alevel.entity.Student;
+
+public class Course extends BaseType {
+    private String name;
+    private Student[] students;
+
+    public String getName() {
+        return name;
     }
 
-    public boolean isNotActive() {
-        return false;
-    }
-    public boolean isActive() {
-        return isActive;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public Course() {
     }
 
     public Student[] getStudents() {
@@ -42,6 +25,4 @@ public class Course {
     public void setStudents(Student[] students) {
         this.students = students;
     }
-
-    private Student[] students;
 }

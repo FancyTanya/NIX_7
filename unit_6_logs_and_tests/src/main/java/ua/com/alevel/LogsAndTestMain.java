@@ -1,11 +1,13 @@
-package ua.com.alevel;
+package java.ua.com.alevel;
 
-import java.util.Date;
-import java.util.TimeZone;
+import main.java.ua.com.alevel.controller.Controller;
 
 public class LogsAndTestMain {
     public static void main(String[] args) {
-        System.out.println("LogsAndTestMain.main");
+
+       Controller controller = new Controller();
+       controller.run();
     }
+
 
 }

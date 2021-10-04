@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>ua.com.alevel</groupId>
     <artifactId>unit_6_logs_and_tests</artifactId>
@@ -128,7 +128,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ua.com.alevel.TestAndLogsMain</mainClass>
+                                    <mainClass>ua.com.alevel.LogsAndTestMain</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
