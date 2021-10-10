@@ -1331,7 +1331,7 @@ Fixed bugs:
  * ssh tasks prompt for kerberos username/password under Java 7
    Bugzilla Report 53437.
 
- * Zip task on <mappedresources> that excludes certain files by way of the mapper resulted in a NullPointerException
+ * Zip task on <mappedresources> that excludes certain files by way of the mapperCSV resulted in a NullPointerException
    Bugzilla Report 54026
 
  * The ant launcher script should properly detect JAVA_HOME on
@@ -2134,7 +2134,7 @@ Changes that could break older environments:
    work-around introduced in Ant 1.7.0 has been removed.
    Bugzilla Report 40511.
 
- * In the <touch> task when a <mapper> is used, the millis and
+ * In the <touch> task when a <mapperCSV> is used, the millis and
    datetime attributes now override the time of the source resource if
    provisioned.
    Bugzilla Report 43235.
@@ -2254,7 +2254,7 @@ Changes that could break older environments:
    java.vm.version for the Created-By Manifest attribute.
    Bugzilla Report 47632.
 
- * The <image> task now supports a nested mapper.  In order to
+ * The <image> task now supports a nested mapperCSV.  In order to
    implement this, the Java API of the task had to change so any
    custom subclass overriding the processFile method will need to
    adapt (by overriding the new two-arg processFile method).
@@ -2803,7 +2803,7 @@ Other changes:
 
  * a new <firstmatchmapper> has been added, which works similar to
    <compositemapper> but only returns the results of the first nested
-   mapper that matches.
+   mapperCSV that matches.
    Bugzilla Report 44873
 
  * <get> has a new maxtime attribute that terminates downloads that
@@ -3313,7 +3313,7 @@ Other changes:
 * Show Previous Revision in the tagdiff.xsl stylesheet
   Bugzilla 29143
 
-* Allow <mapper refid> to refer directly to a FileNameMapper instance.
+* Allow <mapperCSV refid> to refer directly to a FileNameMapper instance.
 
 * If you try and use a type in a namespace (or an antlib), and the type is not
   recognized but there are other definitions in that namespace, Ant lists what
@@ -3945,7 +3945,7 @@ Other changes:
 * Added a new "failall" value for the onerror attribute of <typedef>.
   Bugzilla report 31685.
 
-* unzip/unwar/unjar/untar now supports a nested mapper, which lets you unzip
+* unzip/unwar/unjar/untar now supports a nested mapperCSV, which lets you unzip
   in useful ways.
 
 * Junit task -- display suite first.
@@ -3994,7 +3994,7 @@ Other changes:
   -nested filesets at the same time as the jar attribute
   -a destDir attribute with the appropriate dependency logic, which
    can be used with the jar attribute or nested filesets
-  -a mapper to permit filename remapping on signing
+  -a mapperCSV to permit filename remapping on signing
   -tsaurl and tsacert attributes for timestamped JAR signing
   -nested <sysproperty> elements, which can be used for proxy setup
   and the like
@@ -4038,7 +4038,7 @@ Other changes:
 * property attribute of pathconvert is now optional. If omitted the
   result will be written to the log.
 
-* New mapper, <scriptmapper>, supports scripted mapping of source files/strings
+* New mapperCSV, <scriptmapper>, supports scripted mapping of source files/strings
   to destination strings.
 
 * Add the echoxml task. This will echo nested XML to a file, with
@@ -4262,7 +4262,7 @@ Other changes:
 * added handledirsep attribute to <globmapper> and <regexpmapper>
   Bugzilla report 32487
 
-* added a new mapper <filtermapper>
+* added a new mapperCSV <filtermapper>
 
 * When a BuildListener tried to access System.err or System.out, Ant
   would have thrown an exception - this has been changed.  Ant now
@@ -4295,7 +4295,7 @@ Other changes:
   alternate datetime formats.
 
 * Added support to the touch task to map touched files using a nested
-  mapper element.
+  mapperCSV element.
 
 * Added support to the touch task for a verbose attribute to suppress
   logging of new file creation.
@@ -4660,7 +4660,7 @@ Other changes:
 * Docs fixes for xmlvalidate.html, javadoc.html, starteam.
   Bugzilla Reports 27092, 27284, 27554.
 
-* <pathconvert> now accepts nested <mapper>s.  Bugzilla Report 26364.
+* <pathconvert> now accepts nested <mapperCSV>s.  Bugzilla Report 26364.
 
 * Shipped XML parser is now Xerces-J 2.6.2.
 
@@ -4679,7 +4679,7 @@ Other changes:
 
 * <sshexec> now also captures stderr output.  Bugzilla Report 28349.
 
-* <xslt> now supports a nested <mapper>.  Bugzilla Report 11249.
+* <xslt> now supports a nested <mapperCSV>.  Bugzilla Report 11249.
 
 * <touch> has filelist support.
 
@@ -4736,8 +4736,8 @@ Other changes:
 * <loadproperties> supports loading from a resource.
   Bugzilla Report 28340.
 
-* Nested file mappers and a container mapper implementation have been
-  introduced.  Additionally, the <mapper> element now accepts "defined"
+* Nested file mappers and a container mapperCSV implementation have been
+  introduced.  Additionally, the <mapperCSV> element now accepts "defined"
   nested FileNameMapper implementations directly, allowing a usage
   comparable to those of <condition>, <filter>, and <selector>.
 
@@ -5395,7 +5395,7 @@ Other changes:
   .cfg file
   Bugzilla Report 9752
 
-* <mapper> has an "unpackage" mapper
+* <mapperCSV> has an "unpackage" mapperCSV
   Bugzilla Report 18908
 
 * Added <scriptdef> task allowing tasks to be defined using any BSF-supported
@@ -6308,7 +6308,7 @@ Other changes:
   and one that colorizes the output based on message levels, using
   ANSI color code escape sequences (AnsiColorLogger).
 
-* A "package" mapper type has been added to allow package directory
+* A "package" mapperCSV type has been added to allow package directory
   names replaced with the dotted form.
 
 * You can now specify environment variables in the <java> and <junit> tasks
@@ -6453,7 +6453,7 @@ Fixed bugs:
 
 * XMLLogger now uses the task's name rather than the classname
 
-* <mapper>s will now work as expected if the to pattern expands to an
+* <mapperCSV>s will now work as expected if the to pattern expands to an
   absolute pathname.
 
 * <javac> didn't ignore memory settings in non-fork mode
@@ -6646,7 +6646,7 @@ Other changes:
   and the OS shell, either directly or through the auxiliary antRun
   scripts is used.
 
-* regexp mapper now supports the java.util.regex package of JDK 1.4.
+* regexp mapperCSV now supports the java.util.regex package of JDK 1.4.
 
 * New filesonly attribute for <zip> and friends to suppress directory
   entries.
@@ -6869,7 +6869,7 @@ Other changes:
 
 * <ftp> now supports passive mode.
 
-* New <mapper> data type that can be used to get influence on the
+* New <mapperCSV> data type that can be used to get influence on the
   target files for some tasks like <copy> or enable new types of tasks
   like <apply>.
 

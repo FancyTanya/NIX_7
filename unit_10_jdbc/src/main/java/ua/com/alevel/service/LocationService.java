@@ -4,6 +4,7 @@ import ua.com.alevel.dao.ShortWayDao;
 import ua.com.alevel.entity.Graph;
 import ua.com.alevel.model.Location;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,11 @@ public class LocationService {
     List<Location> locations = new ArrayList<>();
     Location location;
     Graph graph;
+    private final Connection connection;
+
+    public LocationService(Connection connection) {
+        this.connection = connection;
+    }
 
     public Location create(String name) {
         Location newLocation = new Location(name);

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ProblemDao {
 
-    Logger logger = LoggerFactory.getLogger(ProblemDao.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProblemDao.class);
     private static final String SELECT_ALL_WITHOUT_SOLUTIONS = "SELECT p.id, p.from_id, p.to_id FROM problems p LEFT JOIN  solutions s ON p.id = s.problem_id WHERE s.problem_id IS NULL ";
     private static final String SELECT_ID_COST = "SELECT problems.from_id, problems.to_id, routes.cost FROM problems, routes WHERE id NOT IN (SELECT problem_id FROM solutions ";
     private final Connection connection;

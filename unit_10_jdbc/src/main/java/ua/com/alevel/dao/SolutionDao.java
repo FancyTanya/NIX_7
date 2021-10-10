@@ -7,6 +7,7 @@ import ua.com.alevel.model.Solution;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 public class SolutionDao {
     Logger logger = LoggerFactory.getLogger(SolutionDao.class);
@@ -18,18 +19,20 @@ public class SolutionDao {
         this.connection = connection;
     }
 
-    public void insert(Solution solution) {
+
+    public void insert(List<Solution> solutions) {
         try(PreparedStatement statement = connection.prepareStatement(INSERT)) {
             connection.setAutoCommit(false);
-            statement.setInt(1, solution.getProblemId());
-            statement.setInt(2, solution.getCost());
-            statement.addBatch();
-            statement.executeBatch();
+            for(Solution solution: solutions) {
+                statement.setInt(1, solution.getProblemId());
+                statement.setInt(2, solution.getCost());
+                statement.addBatch();
+                statement.executeBatch();
 
-            connection.commit();
-
+                connection.commit();
+            }
         } catch (SQLException throwables) {
-            logger.warn(throwables.getMessage());
+            logger.error(throwables.getMessage());
         }
     }
 

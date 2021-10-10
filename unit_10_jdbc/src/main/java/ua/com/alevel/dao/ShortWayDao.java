@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class ShortWayDao {
-    public ShortWayDao shortWayDao = new ShortWayDao();
+    public ShortWayDao shortWayDao;
     private static final Logger logger = LoggerFactory.getLogger(ShortWayMain.class);
 
     Properties props = loadProperties();

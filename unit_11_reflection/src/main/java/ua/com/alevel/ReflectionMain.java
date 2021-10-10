@@ -1,24 +1,21 @@
 package ua.com.alevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ua.com.alevel.service.FileService;
+import ua.com.alevel.service.GetProperties;
+import ua.com.alevel.service.Mapper;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.security.KeyStore;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 public class ReflectionMain {
 
-    private final static Logger logger = LoggerFactory.getLogger(FileService.class);
+    private final static Logger logger = LoggerFactory.getLogger(Mapper.class);
 
     public static void main(String[] args) {
 
-        FileService fileService = new FileService();
-        Properties properties = new FileService().getProperties();
-        AppProperties appProperties = (AppProperties) fileService.map(AppProperties.class, properties);
+        String path = "unit_11_reflection/appProperties.properties";
+        Mapper mapper = new Mapper();
+        Properties properties = new GetProperties().getProperties(path);
+        AppProperties appProperties = mapper.map(AppProperties.class, properties);
         System.out.println(appProperties);
     }
 }

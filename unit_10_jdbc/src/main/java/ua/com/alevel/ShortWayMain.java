@@ -6,6 +6,7 @@ import ua.com.alevel.dao.*;
 import ua.com.alevel.model.Problem;
 import ua.com.alevel.model.Solution;
 import ua.com.alevel.service.GraphService;
+import ua.com.alevel.service.LocationService;
 import ua.com.alevel.service.SolutionService;
 
 import java.io.IOException;
@@ -25,15 +26,18 @@ public class ShortWayMain {
 
         ProblemDao problemDao;
         SolutionService solutionService = new SolutionService();
-        GraphService graphService = new GraphService();
+        GraphService graphService ;
+        LocationService locationService;
         Properties props = loadProperties();
         String url = props.getProperty("url");
 
         try(Connection connection = DriverManager.getConnection(url, props)) {
             problemDao = new ProblemDao(connection);
+            locationService = new LocationService(connection);
+            graphService =new GraphService(problemDao, locationService);
             List<Problem> allProblems = problemDao.findAll();
-            HashMap mapCityAndMinDistance = graphService.startGraphService();
-            var solution = solutionService.setSolutionToDB();
+            List<Solution> listSolutions = graphService.startGraphService();
+            var solution = solutionService.setSolutionToDB(listSolutions);
 
         } catch (SQLException e) {
             logger.warn(e.getMessage());

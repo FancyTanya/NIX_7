@@ -9,9 +9,13 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>unit_6_logs_and_tests</module>
+        <module>unit_9_ionio_csv</module>
         <module>unit_11_reflection</module>
         <module>unit_12_csv_mapper</module>
         <module>unit_13_jpa_hibernate</module>
+        <module>unit_9</module>
+        <module>modul_3</module>
     </modules>
     <dependencies>
         <dependency>

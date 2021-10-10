@@ -1,6 +1,10 @@
 package ua.com.alevel.entity;
 
+import ua.com.alevel.model.Solution;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Graph {
 
@@ -90,10 +94,15 @@ public class Graph {
         return result.toString();
     }
 
-    public HashMap<String,Integer> mapOfVertexAndMinDistance() {
-        HashMap<String,Integer> result = new HashMap<>();
+    public List<Integer> listOfDistanceValue() {
+//        HashMap<String,Integer> result = new HashMap<>();
+//        for (int i = 0; i < vertexAmount; i++) {
+//            result.put(vertexList[i].cityName, shortestPath[i].distance);
+//        }
+//        return result;
+        List<Integer> result = new ArrayList<>();
         for (int i = 0; i < vertexAmount; i++) {
-            result.put(vertexList[i].cityName, shortestPath[i].distance);
+            result.add(shortestPath[i].distance);
         }
         return result;
     }
