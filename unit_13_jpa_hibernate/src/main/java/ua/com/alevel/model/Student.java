@@ -27,7 +27,7 @@ public class Student {
     @Access(AccessType.PROPERTY)
     private Group group;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "grade")
     private List<Grade> grades;
 
     public Student() {
@@ -57,8 +57,8 @@ public class Student {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public void setFirstName(String firstName) {

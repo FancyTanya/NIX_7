@@ -3,10 +3,10 @@ package ua.com.alevel.entity;
 import javax.persistence.*;
 import java.util.List;
 @Entity
-@Table(name = "expense_categories")
+@Table(name = "expense_categories", schema = "finance_app")
 public class ExpenseCategory extends Category{
 
-    @Column
+    @Column(name = "category_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,7 +14,7 @@ public class ExpenseCategory extends Category{
     @Column(name = "category_title")
     private final String EXPENSE = "expense";
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToMany( cascade = CascadeType.ALL)
     @JoinColumn(name = "expense_category")
     private List<ExpenseCategory> expenseCategories;
 
@@ -27,10 +27,6 @@ public class ExpenseCategory extends Category{
     }
 
     public ExpenseCategory() {
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public List<ExpenseCategory> getExpenseCategories() {

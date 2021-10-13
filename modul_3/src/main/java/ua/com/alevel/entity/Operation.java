@@ -1,55 +1,61 @@
 package ua.com.alevel.entity;
 
-
-import ua.com.alevel.exceptions.IncorrectInput;
-
 import javax.persistence.*;
-import java.util.List;
-@Entity
-@Table
-public class Operation<T extends Category> {
+import java.sql.Timestamp;
 
-    @Column
+@Entity
+@Table(name = "operation", schema = "finance_app")
+public class Operation{
+
+    @Column(name = "operation_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "expence_category")
-    private List<ExpenseCategory> expenseCategories;
+    @Column(name = "operation_time", nullable = false)
+    private Timestamp operationTime;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "income_category")
-    private List<IncomeCategory> incomeCategories;
+    @ManyToOne
+    @Column(name = "category_id")
+    private ExpenseCategory expenseCategory;
+
+    @ManyToOne
+    @Column(name = "category_id")
+    private IncomeCategory incomeCategory;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "category_id")
+//    private Category category;
 
     @Column
     private int currency;
 
+    @Column(name = "user_id")
+    @OneToOne
+    private User user;
+
+    @Column(name = "account_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    private Account account;
+
     public Operation() {
+    }
+
+    public Operation(Category category, int currency, Account account) {
+        if (currency > 0) {
+            category = incomeCategory;
+        }
+        if (currency < 0) {
+            category = expenseCategory;
+        }
+
+        this.currency = currency;
+        this.account = account;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<ExpenseCategory> getExpenseCategories() {
-        return expenseCategories;
-    }
-
-    public void setExpenseCategories(List<ExpenseCategory> expenseCategories) {
-        this.expenseCategories = expenseCategories;
-    }
-
-    public List<IncomeCategory> getIncomeCategories() {
-        return incomeCategories;
-    }
-
-    public void setIncomeCategories(List<IncomeCategory> incomeCategories) {
-        this.incomeCategories = incomeCategories;
     }
 
     public int getCurrency() {
@@ -59,4 +65,29 @@ public class Operation<T extends Category> {
     public void setCurrency(int currency) {
         this.currency = currency;
     }
+
+    public ExpenseCategory getExpenseCategory() {
+        return expenseCategory;
+    }
+
+    public void setExpenseCategory(ExpenseCategory expenseCategory) {
+        this.expenseCategory = expenseCategory;
+    }
+
+    public IncomeCategory getIncomeCategory() {
+        return incomeCategory;
+    }
+
+    public void setIncomeCategory(IncomeCategory incomeCategory) {
+        this.incomeCategory = incomeCategory;
+    }
+
+    public Timestamp getOperationTime() {
+        return operationTime;
+    }
+
+    public void setOperationTime(Timestamp operationTime) {
+        this.operationTime = operationTime;
+    }
+
 }

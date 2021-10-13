@@ -1,4 +1,4 @@
 package ua.com.alevel.entity;
 
-public abstract class Category {
+public abstract class Category<T> {
 }
