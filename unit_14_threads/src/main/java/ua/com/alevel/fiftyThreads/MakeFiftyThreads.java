@@ -13,5 +13,4 @@ public class MakeFiftyThreads extends Thread {
         System.out.println(getName());
         }
 
-
 }
