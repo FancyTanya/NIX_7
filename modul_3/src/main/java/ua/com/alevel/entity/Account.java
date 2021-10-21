@@ -1,47 +1,28 @@
 package ua.com.alevel.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "accounts", schema = "finance_app")
+@Table(name = "accounts")
 public class Account {
     @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
     private Long id;
 
-    @Column
-    @OneToMany(mappedBy = "accounts")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "user_id")
-    @JoinColumn(name = "user_id")
-    private Long user_id;
+    @OneToMany(mappedBy = "account")
+    private List<Operation> operations;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Account> accounts;
-
-    public Account() {
-    }
-
-//    public Account(User user) {
-//        this.user = user;
-//        accounts = new ArrayList<>();
-//    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

@@ -1,4 +1,33 @@
 package ua.com.alevel.entity;
 
-public abstract class Category<T> {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.NaturalId;
+
+import javax.persistence.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+
+@Entity
+@Table(name = "categories")
+public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    @NaturalId
+    private String title;
+
+    @Column
+    private boolean isIncome;
+
+    public Category(String title, boolean isIncome) {
+        this.title = title;
+        this.isIncome = isIncome;
+    }
+
 }

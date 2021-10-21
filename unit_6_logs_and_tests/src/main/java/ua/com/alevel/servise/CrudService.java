@@ -1,6 +1,6 @@
-package main.java.ua.com.alevel.servise;
+package ua.com.alevel.servise;
 
-import main.java.ua.com.alevel.entity.BaseType;
+import ua.com.alevel.entity.BaseType;
 
 public interface CrudService <E extends BaseType> {
     void create(E e);

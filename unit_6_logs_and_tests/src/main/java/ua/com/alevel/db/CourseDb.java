@@ -1,4 +1,4 @@
-package main.java.ua.com.alevel.db;
+package ua.com.alevel.db;
 
 
 import main.java.ua.com.alevel.entity.Course;

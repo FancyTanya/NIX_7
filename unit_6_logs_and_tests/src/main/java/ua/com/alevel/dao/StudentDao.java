@@ -1,4 +1,4 @@
-package main.java.ua.com.alevel.dao;
+package ua.com.alevel.dao;
 
 import main.java.ua.com.alevel.entity.Student;
 

@@ -1,4 +1,4 @@
-package main.java.ua.com.alevel.controller;
+package ua.com.alevel.controller;
 
 import main.java.ua.com.alevel.entity.Student;
 import main.java.ua.com.alevel.servise.impl.CourseServiceImpl;

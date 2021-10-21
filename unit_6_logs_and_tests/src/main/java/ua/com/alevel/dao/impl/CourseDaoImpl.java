@@ -1,4 +1,4 @@
-package main.java.ua.com.alevel.dao.impl;
+package ua.com.alevel.dao.impl;
 
 import main.java.ua.com.alevel.dao.CourseDao;
 import main.java.ua.com.alevel.db.CourseDb;

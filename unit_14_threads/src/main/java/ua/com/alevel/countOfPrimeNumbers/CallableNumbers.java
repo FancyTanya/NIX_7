@@ -1,6 +1,5 @@
 package ua.com.alevel.countOfPrimeNumbers;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 

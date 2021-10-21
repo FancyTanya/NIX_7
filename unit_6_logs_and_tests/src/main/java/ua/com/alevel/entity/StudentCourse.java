@@ -1,4 +1,4 @@
-package main.java.ua.com.alevel.entity;
+package ua.com.alevel.entity;
 
 public class StudentCourse {
     private int studentId;

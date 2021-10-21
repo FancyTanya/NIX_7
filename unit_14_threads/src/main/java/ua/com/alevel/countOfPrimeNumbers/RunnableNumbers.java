@@ -2,7 +2,7 @@ package ua.com.alevel.countOfPrimeNumbers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class RunnableNumbers implements Runnable {
 

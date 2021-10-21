@@ -1,7 +1,6 @@
 package ua.com.alevel.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ua.com.alevel.entity.Operation;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,13 +8,13 @@ import java.util.List;
 
 import static ua.com.alevel.util.ConvertStringToTimestamp.convertStringToTimestamp;
 import static ua.com.alevel.util.PrintToCSV.printToCSV;
+;
 
 public class ExportListOfOperationsToCSV {
 
     private static final Logger logger = LoggerFactory.getLogger(ExportListOfOperationsToCSV.class);
     private static final String SELECT_ALL= "SELECT * FROM operations WHERE operation_time BETWEEN(?, ?) ";
     private final Connection connection;
-    private Operation operation;
 
     public ExportListOfOperationsToCSV(Connection connection) {
         this.connection = connection;

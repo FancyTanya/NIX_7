@@ -1,46 +1,35 @@
 package ua.com.alevel.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ua.com.alevel.exceptions.IncorrectInput;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import ua.com.alevel.dao.AccountDao;
 import ua.com.alevel.service.AddNewOperationByUser;
 import ua.com.alevel.service.ExportListOfOperationsToCSV;
-import ua.com.alevel.util.InitTables;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
+
 public class Controller {
-    private static final Logger logger = LoggerFactory.getLogger(Controller.class);
-    String login;
-    String password;
-    String url = "jdbc:mysql://localhost:3306/finance_app";
+
     Scanner scanner = new Scanner(System.in);
     String select;
     ExportListOfOperationsToCSV operationsToCSV;
-    private static Connection connection;
+    SessionFactory sessionFactory;
+    private final Session session = sessionFactory.getCurrentSession();
 
-    public void run(){
-        connectionToDb();
-        new InitTables().initTables();
+
+    public void run(String login, String password) {
         menu();
-    }
-
-    private void connectionToDb(){
-        System.out.println("Please, enter LOGIN to database");
-        login = scanner.nextLine().trim();
-        System.out.println("Please, enter PASSWORD to database");
-        password = scanner.nextLine().trim();
-        try {
-            connection = DriverManager.getConnection(url, login, password);
-        } catch (SQLException e) {
-            logger.error("SQL exception: wrong parameters for connection" + e.getMessage());
+        selectOperation();
+        if (select.equals("1")) {
+            createOperation(scanner);
+        }
+        if (select.equals("2")) {
+            listOfOperations(scanner);
         }
     }
 
-    private void menu() {
+    public void menu() {
         select = scanner.nextLine();
         System.out.println("------------------------------");
         System.out.println("If you want to add new operation, please enter 1");
@@ -50,29 +39,40 @@ public class Controller {
 
     private void selectOperation() {
         switch (select) {
-            case "1" : createOperation(scanner); break;
-            case "2" : listOfOperations(scanner); break;
-
+            case "1":
+                createOperation(scanner);
+                break;
+            case "2":
+                listOfOperations(scanner);
+                break;
         }
     }
 
     private void createOperation(Scanner scanner) {
-        AddNewOperationByUser addNewOperation = new AddNewOperationByUser();
-        String email = scanner.nextLine();
-        System.out.println("Please, enter user's email");
-        String firstName = scanner.nextLine();
-        System.out.println("Please, enter user's firstname");
-        String lastName = scanner.nextLine();
-        System.out.println("Please, enter user's lastname");
+        AddNewOperationByUser addNewOperation = new AddNewOperationByUser(session);
+        AccountDao accountDao = new AccountDao();
+
         String category = scanner.nextLine();
         System.out.println("Please, specify the category of the operation");
         int currency = Integer.parseInt(scanner.nextLine());
-        System.out.println("Please, specify the category of the operation");
-        Long accountId = Long.parseLong(scanner.nextLine());
-        System.out.println("Please, specify the category of the operation");
+        System.out.println("Please, specify the amount of the operation");
 
-        addNewOperation.newOperation(currency, category, email , accountId);
+        showAllAccounts(addNewOperation);
+
+        Long accountId = Long.parseLong(scanner.nextLine());
+        System.out.println("Please, enter account ID from list");
+
+        addNewOperation.newOperation(currency, category, accountId);
     }
+
+    private void showAllAccounts(AddNewOperationByUser addNewOperation) {
+        List<Long> accounts = addNewOperation.findAllAccounts();
+        for (Long acc : accounts) {
+            System.out.println("Active accounts:");
+            System.out.println(acc);
+        }
+    }
+
 
     private void listOfOperations(Scanner scanner) {
         String start = scanner.nextLine();

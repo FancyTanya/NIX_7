@@ -1,4 +1,4 @@
-package main.java.ua.com.alevel.servise;
+package ua.com.alevel.servise;
 
 import main.java.ua.com.alevel.entity.Course;
 

@@ -20,14 +20,14 @@ public class Student {
 
     @NaturalId
     @Column(name = "cell_number")
-    private int cellNumber;
+    private String cellNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     @Access(AccessType.PROPERTY)
     private Group group;
 
-    @OneToMany(mappedBy = "grade")
+    @OneToMany(mappedBy = "student")
     private List<Grade> grades;
 
     public Student() {
@@ -73,11 +73,15 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public int getCellNumber() {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getCellNumber() {
         return cellNumber;
     }
 
-    public void setCellNumber(int cellNumber) {
+    public void setCellNumber(String cellNumber) {
         this.cellNumber = cellNumber;
     }
 }

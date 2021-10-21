@@ -17,6 +17,11 @@ public class Grade {
     @Access(AccessType.PROPERTY)
     private Lesson lesson;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    @Access(AccessType.PROPERTY)
+    private Student student;
+
     public Grade() {
     }
 

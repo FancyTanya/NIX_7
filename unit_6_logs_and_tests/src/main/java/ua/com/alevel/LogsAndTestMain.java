@@ -1,6 +1,6 @@
-package java.ua.com.alevel;
+package ua.com.alevel;
 
-import main.java.ua.com.alevel.controller.Controller;
+import ua.com.alevel.controller.Controller;
 
 public class LogsAndTestMain {
     public static void main(String[] args) {
