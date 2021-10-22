@@ -5,8 +5,11 @@ import org.hibernate.SessionFactory;
 import ua.com.alevel.dao.AccountDao;
 import ua.com.alevel.service.AddNewOperationByUser;
 import ua.com.alevel.service.ExportListOfOperationsToCSV;
+
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Supplier;
 
 
 public class Controller {
@@ -14,8 +17,7 @@ public class Controller {
     Scanner scanner = new Scanner(System.in);
     String select;
     ExportListOfOperationsToCSV operationsToCSV;
-    SessionFactory sessionFactory;
-    private final Session session = sessionFactory.getCurrentSession();
+    Supplier<EntityManager> persistence = null;
 
 
     public void run(String login, String password) {
@@ -49,29 +51,27 @@ public class Controller {
     }
 
     private void createOperation(Scanner scanner) {
-        AddNewOperationByUser addNewOperation = new AddNewOperationByUser(session);
-        AccountDao accountDao = new AccountDao();
+        AddNewOperationByUser addNewOperation = new AddNewOperationByUser();
 
         String category = scanner.nextLine();
         System.out.println("Please, specify the category of the operation");
         int currency = Integer.parseInt(scanner.nextLine());
-        System.out.println("Please, specify the amount of the operation");
+        System.out.println("Please, enter the transaction amount");
 
-        showAllAccounts(addNewOperation);
 
-        Long accountId = Long.parseLong(scanner.nextLine());
-        System.out.println("Please, enter account ID from list");
+        String email = scanner.nextLine();
+        System.out.println("Please, enter user's email");
 
-        addNewOperation.newOperation(currency, category, accountId);
+        addNewOperation.newOperation(currency, category, email);
     }
 
-    private void showAllAccounts(AddNewOperationByUser addNewOperation) {
-        List<Long> accounts = addNewOperation.findAllAccounts();
-        for (Long acc : accounts) {
-            System.out.println("Active accounts:");
-            System.out.println(acc);
-        }
-    }
+//    private void showAllAccounts(AddNewOperationByUser addNewOperation) {
+//        List<Long> accounts = addNewOperation.findAllAccounts();
+//        for (Long acc : accounts) {
+//            System.out.println("Active accounts:");
+//            System.out.println(acc);
+//        }
+//    }
 
 
     private void listOfOperations(Scanner scanner) {
