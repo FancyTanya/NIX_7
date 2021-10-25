@@ -25,9 +25,4 @@ public class Category {
     @Column
     private boolean isIncome;
 
-    public Category(String title, boolean isIncome) {
-        this.title = title;
-        this.isIncome = isIncome;
-    }
-
 }

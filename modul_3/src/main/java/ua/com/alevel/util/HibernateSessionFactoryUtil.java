@@ -1,32 +1,28 @@
 package ua.com.alevel.util;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ua.com.alevel.entity.*;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 
 public class HibernateSessionFactoryUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(HibernateSessionFactoryUtil.class);
     private static SessionFactory sessionFactory;
 
-    public HibernateSessionFactoryUtil() {
+    private HibernateSessionFactoryUtil() {
     }
 
-    public static SessionFactory getSessionFactory() {
+    public static SessionFactory getSessionFactory(String login, String password) {
         if (sessionFactory == null) {
             try {
-                Configuration configuration = new Configuration().configure();
-                configuration.addAnnotatedClass(Account.class);
-                configuration.addAnnotatedClass(Category.class);
-                configuration.addAnnotatedClass(Operation.class);
-                configuration.addAnnotatedClass(User.class);
-                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                        .applySettings(configuration.getProperties());
-                sessionFactory = configuration.buildSessionFactory(builder.build());
+                var configuration = new Configuration().configure()
+                        .setProperty("hibernate.connection.username", login)
+                        .setProperty("hibernate.connection.password", password);
+
+                sessionFactory = configuration.buildSessionFactory();
             } catch (Exception e) {
-                logger.error("Exception",e.getMessage());
+                logger.error("Exception",e);
             }
         }
         return sessionFactory;

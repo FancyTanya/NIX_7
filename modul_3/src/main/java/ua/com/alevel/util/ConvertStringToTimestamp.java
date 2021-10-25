@@ -17,7 +17,7 @@ public class ConvertStringToTimestamp {
             return timeStampDate;
         } catch (ParseException e) {
             System.out.println("Exception :" + e);
-            return null;
+            throw new RuntimeException(e);
         }
     }
 }

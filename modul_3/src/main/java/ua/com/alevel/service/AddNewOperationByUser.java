@@ -2,55 +2,54 @@ package ua.com.alevel.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ua.com.alevel.dao.AccountDao;
-import ua.com.alevel.dao.CategoryDao;
-import ua.com.alevel.dao.OperationDao;
-import ua.com.alevel.dao.UserDao;
+import ua.com.alevel.entity.Account;
+import ua.com.alevel.entity.Category;
 import ua.com.alevel.entity.Operation;
 import ua.com.alevel.exceptions.IncorrectInput;
+import ua.com.alevel.util.HibernateSessionFactoryUtil;
 
-import javax.persistence.EntityManager;
-import java.util.function.Supplier;
+import javax.persistence.TypedQuery;
 
 
 public class AddNewOperationByUser {
 
-    private final Supplier<EntityManager> persistence = null;
     private static final Logger logger = LoggerFactory.getLogger(AddNewOperationByUser.class);
-    private OperationDao operationDao = new OperationDao();
-    private UserDao userDao = new UserDao();
-    private CategoryDao categoryDao = new CategoryDao(persistence);
-    private AccountDao accountDao = new AccountDao(persistence);
+    private final String login;
+    private final String password;
 
-
-    public void newOperation(int currency, String category, String email) {
-        EntityManager entityManager = persistence.get();
-        entityManager.getTransaction().begin();
-
-        logger.info("Create new operation");
-        Operation operation = null;
-        try {
-            operation = new Operation(
-                    categoryDao.findByCategoryName(category),
-                    currency,
-                    accountDao.findByEmail(email));
-        } catch (IncorrectInput e) {
-            logger.warn("Incorrect input", e);
-        }
-        operationDao.save(operation);
+    public AddNewOperationByUser(String login, String password) {
+        this.login = login;
+        this.password = password;
     }
 
-//    public void newOperation(int currency, String category, Long accountId) {
-//        EntityManager entityManager = persistence.get();
-//        entityManager.getTransaction().begin();
-//
-//        logger.info("Create new operation");
-//        Operation operation = new Operation(
-//                categoryDao.findByCategoryName(category).getTitle(),
-//                currency,
-//                accountDao.findById(accountId));
-//        operationDao.save(operation);
-//    }
+    public void newOperation(int currency, String category, String email) {
+        try (var sessionFactory = HibernateSessionFactoryUtil.getSessionFactory(login, password)) {
+            try (var session = sessionFactory.openSession()) {
+                session.beginTransaction();
+                try {
+                    logger.info("Create new operation");
+                    session.getTransaction().begin();
 
+                    TypedQuery<Category> categoryTypedQuery = session.createQuery("select c from Category " +
+                            "as c where c.title = :category", Category.class).setParameter("category", category);
+                    Category cat = categoryTypedQuery.getResultStream().findAny()
+                            .orElseThrow(() -> new IncorrectInput("Incorrect input"));
 
+                    TypedQuery<Account> accountTypedQuery = session.createQuery(
+                                    "select ac.id from Account as ac left join User  as u ON " +
+                                            "ac.id=u.id where u.email like :email", Account.class)
+                            .setParameter("email", email);
+                    Account account = accountTypedQuery.getResultStream().findAny()
+                            .orElseThrow(() -> new IncorrectInput("Incorrect input"));
+
+                    var operation = new Operation(category, currency, account);
+                    session.save(operation);
+
+                } catch (Exception e) {
+                    logger.warn("Incorrect input", e);
+                }
+            }
+        }
+
+    }
 }
