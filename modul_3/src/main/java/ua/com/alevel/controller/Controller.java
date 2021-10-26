@@ -1,7 +1,9 @@
 package ua.com.alevel.controller;
 
+import org.hibernate.SessionFactory;
 import ua.com.alevel.service.AddNewOperationByUser;
 import ua.com.alevel.service.ExportListOfOperationsToCSV;
+import ua.com.alevel.util.HibernateSessionFactoryUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +13,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Scanner;
+
+import static ua.com.alevel.util.HibernateSessionFactoryUtil.getSessionFactory;
 
 
 public class Controller {
@@ -45,7 +49,6 @@ public class Controller {
     }
 
     private void createOperation(Scanner scanner, String login, String password) {
-        AddNewOperationByUser addNewOperation = new AddNewOperationByUser(login, password);
 
         System.out.println("Please, specify the category of the operation");
         String category = scanner.nextLine();
@@ -56,7 +59,11 @@ public class Controller {
         System.out.println("Please, enter user's email");
         String email = scanner.nextLine();
 
-        addNewOperation.newOperation(currency, category, email);
+        try(getSessionFactory(login, password)) {
+            AddNewOperationByUser addNewOperation = new AddNewOperationByUser(login, password);
+
+            addNewOperation.newOperation(currency, category, email);
+        }
     }
 
     private void listOfOperations(Scanner scanner, String login, String password) {

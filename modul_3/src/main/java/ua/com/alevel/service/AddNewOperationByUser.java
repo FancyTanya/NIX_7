@@ -1,5 +1,6 @@
 package ua.com.alevel.service;
 
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.com.alevel.entity.Account;
@@ -17,9 +18,11 @@ public class AddNewOperationByUser {
     private final String login;
     private final String password;
 
+
     public AddNewOperationByUser(String login, String password) {
         this.login = login;
         this.password = password;
+
     }
 
     public void newOperation(int currency, String category, String email) {
