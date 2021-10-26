@@ -45,8 +45,14 @@ public class AddNewOperationByUser {
                     Account account = accountTypedQuery.getResultStream().findAny()
                             .orElseThrow(() -> new IncorrectInput("Incorrect input"));
 
-                    var operation = new Operation(category, currency, account);
+                    var operation = new Operation(cat.getTitle(), currency, account);
+
+                    operation.setAccount(account);
+                    operation.setCurrency(currency);
+                    operation.setCategory(cat);
                     session.save(operation);
+
+                    session.getTransaction().commit();
 
                 } catch (Exception e) {
                     logger.warn("Incorrect input", e);

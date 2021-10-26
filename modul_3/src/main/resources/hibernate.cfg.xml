@@ -6,14 +6,13 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/finance_app</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/finance</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <mapping class="ua.com.alevel.entity.Account"/>
-        <mapping class="ua.com.alevel.entity.ExpenseCategory"/>
-        <mapping class="ua.com.alevel.entity.IncomeCategory"/>
+        <mapping class="ua.com.alevel.entity.Category"/>
         <mapping class="ua.com.alevel.entity.Operation"/>
         <mapping class="ua.com.alevel.entity.User"/>
 

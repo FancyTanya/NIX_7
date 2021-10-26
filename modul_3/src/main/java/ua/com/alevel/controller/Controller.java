@@ -1,6 +1,8 @@
 package ua.com.alevel.controller;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import ua.com.alevel.service.AddNewOperationByUser;
 import ua.com.alevel.service.ExportListOfOperationsToCSV;
 import ua.com.alevel.util.HibernateSessionFactoryUtil;
@@ -59,7 +61,12 @@ public class Controller {
         System.out.println("Please, enter user's email");
         String email = scanner.nextLine();
 
-        try(getSessionFactory(login, password)) {
+        Configuration configuration = new Configuration().configure();
+        configuration.setProperty("hibernate.connection.username", login);
+        configuration.setProperty("hibernate.connection.password", password);
+
+        try (SessionFactory sessionFactory = configuration.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
             AddNewOperationByUser addNewOperation = new AddNewOperationByUser(login, password);
 
             addNewOperation.newOperation(currency, category, email);
