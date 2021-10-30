@@ -1,12 +1,7 @@
 # Intellij
 .idea/
 
-# Eclipse
-.classpath
-.project
-
-# IntelliJ
-out/
+.txt
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

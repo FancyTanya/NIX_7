@@ -28,7 +28,7 @@ public class AddNewOperationByUser {
     public void newOperation(int currency, String category, String email) {
         try (var sessionFactory = HibernateSessionFactoryUtil.getSessionFactory(login, password)) {
             try (var session = sessionFactory.openSession()) {
-                session.beginTransaction();
+//                session.beginTransaction();
                 try {
                     logger.info("Create new operation");
                     session.getTransaction().begin();
@@ -40,7 +40,7 @@ public class AddNewOperationByUser {
 
                     TypedQuery<Account> accountTypedQuery = session.createQuery(
                                     "select ac.id from Account as ac left join User  as u ON " +
-                                            "ac.id=u.id where u.email like :email", Account.class)
+                                            "ac.id=u.id where u.email = :email", Account.class)
                             .setParameter("email", email);
                     Account account = accountTypedQuery.getResultStream().findAny()
                             .orElseThrow(() -> new IncorrectInput("Incorrect input"));
