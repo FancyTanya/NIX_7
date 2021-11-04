@@ -2,12 +2,10 @@ package ua.com.alevel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ua.com.alevel.dao.*;
+import ua.com.alevel.dao.ProblemDao;
+import ua.com.alevel.graphUtil.Graph;
 import ua.com.alevel.model.Problem;
 import ua.com.alevel.model.Solution;
-import ua.com.alevel.service.GraphService;
-import ua.com.alevel.service.LocationService;
-import ua.com.alevel.service.SolutionService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +13,6 @@ import java.io.UncheckedIOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,32 +22,28 @@ public class ShortWayMain {
     public static void main(String[] args) {
 
         ProblemDao problemDao;
-        SolutionService solutionService = new SolutionService();
-        GraphService graphService ;
-        LocationService locationService;
-        Properties props = loadProperties();
-        String url = props.getProperty("url");
+        Properties props = new Properties();
 
-        try(Connection connection = DriverManager.getConnection(url, props)) {
+        try (InputStream inputStream = ShortWayMain.class.getResourceAsStream("/jdbc.properties")) {
+            props.load(inputStream);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+
+        try (Connection connection = DriverManager.getConnection(props.getProperty("url"), props)) {
             problemDao = new ProblemDao(connection);
-            locationService = new LocationService(connection);
-            graphService =new GraphService(problemDao, locationService);
+
+            Graph graph = new Graph();
+
             List<Problem> allProblems = problemDao.findAll();
-            List<Solution> listSolutions = graphService.startGraphService();
-            var solution = solutionService.setSolutionToDB(listSolutions);
+
+            List<Solution> solutions = graph.solutionFromGraph(graph, allProblems);
+
+            problemDao.insert(solutions);
 
         } catch (SQLException e) {
             logger.warn(e.getMessage());
         }
     }
 
-    private static Properties loadProperties() {
-        Properties properties = new Properties();
-        try (InputStream input = ShortWayMain.class.getResourceAsStream("/jdbc.properties")) {
-            properties.load(input);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-        return properties;
-    }
 }
