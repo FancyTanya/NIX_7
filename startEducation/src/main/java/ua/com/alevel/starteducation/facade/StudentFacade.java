@@ -8,10 +8,15 @@ import java.util.List;
 public interface StudentFacade {
 
     void create(StudentDtoRequest dto);
+
     void update(StudentDtoRequest dto, Long id);
+
     void delete(Long id);
+
     StudentDtoResponse findById(Long id);
+
     List<StudentDtoResponse> findAll();
+
     List<StudentDtoResponse> findAllByTeacher(Long teacherId);
 
 }

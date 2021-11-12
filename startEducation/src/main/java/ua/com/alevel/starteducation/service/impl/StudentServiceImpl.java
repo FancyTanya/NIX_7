@@ -1,6 +1,5 @@
 package ua.com.alevel.starteducation.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.starteducation.model.Student;
 import ua.com.alevel.starteducation.repository.StudentRepository;
@@ -19,26 +18,36 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void create(Student student) {
-
+        studentRepository.save(student);
     }
 
     @Override
     public void update(Student student) {
-
+        studentRepository.save(student);
     }
 
     @Override
     public void delete(Long id) {
+        studentRepository.deleteById(id);
+    }
 
+    @Override
+    public boolean existById(Long id) {
+        return studentRepository.existsById(id);
     }
 
     @Override
     public Student findById(Long id) {
-        return null;
+        return studentRepository.findById(id).get();
     }
 
     @Override
     public List<Student> findAll() {
-        return null;
+        return studentRepository.findAll();
+    }
+
+    @Override
+    public List<Student> findAllByTeacher(Long teacherId) {
+        return studentRepository.findAllByTeacher(teacherId);
     }
 }

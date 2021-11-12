@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ServletExample extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(ServletExample.class);
-    private static final ConcurrentHashMap<String,String> map = new ConcurrentHashMap();
+    private  final ConcurrentHashMap<String,String> map = new ConcurrentHashMap();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
