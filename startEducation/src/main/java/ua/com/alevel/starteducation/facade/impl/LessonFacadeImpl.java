@@ -1,6 +1,8 @@
 package ua.com.alevel.starteducation.facade.impl;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.starteducation.dto.request.LessonDtoRequest;
 import ua.com.alevel.starteducation.dto.response.LessonDtoResponse;
 import ua.com.alevel.starteducation.facade.LessonFacade;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class LessonFacadeImpl implements LessonFacade {
 
     private final LessonService lessonService;
@@ -24,6 +27,7 @@ public class LessonFacadeImpl implements LessonFacade {
     }
 
     @Override
+    @Transactional
     public void create(LessonDtoRequest dto, Long teacherId) {
         Lesson lesson = new Lesson();
         lesson.setTitle(dto.getTitle());
@@ -52,13 +56,13 @@ public class LessonFacadeImpl implements LessonFacade {
     }
 
     @Override
-    public List<LessonDtoResponse> findAll() {
-        return lessonService.findAll().stream().map(LessonDtoResponse::new).collect(Collectors.toList());
+    public List<LessonDtoResponse> findAll(Pageable pageable) {
+        return lessonService.findAll(pageable).stream().map(LessonDtoResponse::new).collect(Collectors.toList());
     }
 
     @Override
-    public List<LessonDtoResponse> findAllByTeacher(Long teacherId) {
+    public List<LessonDtoResponse> findAllByTeacher(Long teacherId, Pageable pageable) {
         Teacher teacher = teacherService.findById(teacherId);
-        return lessonService.findAllByTeacher(teacherId).stream().map(LessonDtoResponse::new).collect(Collectors.toList());
+        return lessonService.findAllByTeacher(teacherId, pageable).stream().map(LessonDtoResponse::new).collect(Collectors.toList());
     }
 }

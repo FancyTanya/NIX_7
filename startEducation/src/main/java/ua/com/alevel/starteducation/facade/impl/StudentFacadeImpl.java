@@ -1,12 +1,13 @@
 package ua.com.alevel.starteducation.facade.impl;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.starteducation.dto.request.StudentDtoRequest;
 import ua.com.alevel.starteducation.dto.response.StudentDtoResponse;
 import ua.com.alevel.starteducation.facade.StudentFacade;
 import ua.com.alevel.starteducation.model.Student;
 import ua.com.alevel.starteducation.service.StudentService;
-import ua.com.alevel.starteducation.service.TeacherService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,11 +16,10 @@ import java.util.stream.Collectors;
 public class StudentFacadeImpl implements StudentFacade {
 
     private final StudentService studentService;
-    private final TeacherService teacherService;
 
-    public StudentFacadeImpl(StudentService studentService, TeacherService teacherService) {
+
+    public StudentFacadeImpl(StudentService studentService) {
         this.studentService = studentService;
-        this.teacherService = teacherService;
     }
 
     @Override
@@ -51,12 +51,12 @@ public class StudentFacadeImpl implements StudentFacade {
     }
 
     @Override
-    public List<StudentDtoResponse> findAll() {
-        return studentService.findAll().stream().map(StudentDtoResponse::new).collect(Collectors.toList());
+    public List<StudentDtoResponse> findAll(Pageable pageable) {
+        return studentService.findAll(pageable).stream().map(StudentDtoResponse::new).collect(Collectors.toList());
     }
 
     @Override
-    public List<StudentDtoResponse> findAllByTeacher(Long teacherId) {
-        return studentService.findAllByTeacher(teacherId).stream().map(StudentDtoResponse::new).collect(Collectors.toList());
+    public List<StudentDtoResponse> findAllByTeacher(Long teacherId, Pageable pageable) {
+        return studentService.findAllByTeacher(teacherId, pageable).stream().map(StudentDtoResponse::new).collect(Collectors.toList());
     }
 }

@@ -35,9 +35,4 @@ public class Teacher extends BaseEntity{
     @OneToMany(mappedBy = "teacher")
     private List<Lesson> lessons;
 
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_role")
-    @JoinColumn(name = "teacher_id")
-    @Column(name = "role")
-    private Role roles;
 }

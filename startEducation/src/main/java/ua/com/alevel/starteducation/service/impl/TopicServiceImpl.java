@@ -1,6 +1,11 @@
 package ua.com.alevel.starteducation.service.impl;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ua.com.alevel.starteducation.dto.response.ResponseContainer;
 import ua.com.alevel.starteducation.model.Topic;
 import ua.com.alevel.starteducation.repository.TopicRepository;
 import ua.com.alevel.starteducation.service.TopicService;
@@ -41,12 +46,14 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List<Topic> findAll() {
-        return topicRepository.findAll();
+    @PageableAsQueryParam
+    public Page<ResponseContainer> findAll(@Parameter(hidden = true) Pageable pageable) {
+        return topicRepository.findAll(pageable).map(ResponseContainer::new);
     }
 
     @Override
-    public List<Topic> findAllByTeacher(Long teacherId) {
-        return topicRepository.findAllByTeacher(teacherId);
+    @PageableAsQueryParam
+    public Page<ResponseContainer> findAllByTeacher(Long teacherId, @Parameter(hidden = true) Pageable pageable) {
+        return topicRepository.findAllByTeacher(teacherId, pageable).map(ResponseContainer::new);
     }
 }

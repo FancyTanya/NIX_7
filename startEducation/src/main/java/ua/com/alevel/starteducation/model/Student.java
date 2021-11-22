@@ -39,9 +39,4 @@ public class Student extends BaseEntity{
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_role")
-    @JoinColumn(name = "student_id")
-    @Column(name = "role")
-    private Role roles;
 }

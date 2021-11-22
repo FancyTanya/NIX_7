@@ -1,7 +1,12 @@
 package ua.com.alevel.starteducation.service.impl;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ua.com.alevel.starteducation.dto.response.ResponseContainer;
 import ua.com.alevel.starteducation.model.Teacher;
 import ua.com.alevel.starteducation.repository.TeacherRepository;
 import ua.com.alevel.starteducation.service.TeacherService;
@@ -43,7 +48,9 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Teacher> findAll() {
-        return teacherRepository.findAll();
+    @PageableAsQueryParam
+    public Page<ResponseContainer> findAll(@Parameter(hidden = true) Pageable pageable) {
+        return teacherRepository.findAll(pageable).map(ResponseContainer::new);
     }
+
 }

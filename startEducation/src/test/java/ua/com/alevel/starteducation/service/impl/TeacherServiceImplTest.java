@@ -1,6 +1,7 @@
 package ua.com.alevel.starteducation.service.impl;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import ua.com.alevel.starteducation.model.Teacher;
@@ -8,15 +9,19 @@ import ua.com.alevel.starteducation.repository.TeacherRepository;
 import ua.com.alevel.starteducation.service.TeacherService;
 
 import static org.junit.jupiter.api.Assertions.*;
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+import static org.mockito.Mockito.mock;
+
+
 class TeacherServiceImplTest {
-    TeacherRepository teacherRepository;
+
     TeacherService teacherService;
 
+    TeacherRepository teacherRepository;
 
-    @BeforeAll
-    void prepare() {
-        teacherService = new TeacherServiceImpl(teacherRepository);
+
+    @BeforeEach
+    void setUp() {
+        teacherService = mock(TeacherService.class);
     }
 
     @Test

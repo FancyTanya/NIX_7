@@ -1,5 +1,7 @@
 package ua.com.alevel.starteducation.facade.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.starteducation.dto.request.TeacherDtoRequest;
 import ua.com.alevel.starteducation.dto.response.TeacherDtoResponse;
@@ -48,8 +50,8 @@ public class TeacherFacadeImpl implements TeacherFacade {
     }
 
     @Override
-    public List<TeacherDtoResponse> findAll() {
-        return teacherService.findAll().stream().map(TeacherDtoResponse::new).collect(Collectors.toList());
+    public List<TeacherDtoResponse> findAll(Pageable pageable) {
+        return teacherService.findAll(pageable).stream().map(TeacherDtoResponse::new).collect(Collectors.toList());
     }
 }
 

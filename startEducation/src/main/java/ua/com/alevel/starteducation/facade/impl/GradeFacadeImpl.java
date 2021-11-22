@@ -1,5 +1,8 @@
 package ua.com.alevel.starteducation.facade.impl;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.starteducation.dto.request.GradeDtoRequest;
 import ua.com.alevel.starteducation.dto.response.GradeDtoResponse;
 import ua.com.alevel.starteducation.facade.GradeFacade;
@@ -11,6 +14,8 @@ import ua.com.alevel.starteducation.service.StudentService;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
+@Transactional
 public class GradeFacadeImpl implements GradeFacade {
 
     private final GradeService gradeService;
@@ -22,6 +27,7 @@ public class GradeFacadeImpl implements GradeFacade {
     }
 
     @Override
+    @Transactional
     public void create(GradeDtoRequest dto, Long studentId) {
         Grade grade = new Grade();
         grade.setGrade(dto.getGrade());
@@ -35,7 +41,6 @@ public class GradeFacadeImpl implements GradeFacade {
         Grade grade = gradeService.findById(id);
         grade.setGrade(dto.getGrade());
         gradeService.update(grade);
-
     }
 
     @Override
@@ -46,17 +51,20 @@ public class GradeFacadeImpl implements GradeFacade {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public GradeDtoResponse findById(Long id) {
         return new GradeDtoResponse(gradeService.findById(id));
     }
 
     @Override
-    public List<GradeDtoResponse> findAll() {
-        return gradeService.findAll().stream().map(GradeDtoResponse::new).collect(Collectors.toList());
+    public List<GradeDtoResponse> findAll(Pageable pageable) {
+        return gradeService.findAll(pageable).stream().map(GradeDtoResponse::new).collect(Collectors.toList());
     }
 
     @Override
-    public List<GradeDtoResponse> findAllByStudent(Long studentId) {
-        return gradeService.findAllByStudent(studentId).stream().map(GradeDtoResponse::new).collect(Collectors.toList());
+    public List<GradeDtoResponse> findAllByStudent(Long id, Pageable pageable) {
+        return gradeService.findAllByStudent(id, pageable).stream().map(GradeDtoResponse::new).collect(Collectors.toList());
     }
+
+
 }

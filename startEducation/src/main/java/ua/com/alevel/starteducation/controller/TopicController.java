@@ -8,6 +8,7 @@ import ua.com.alevel.starteducation.dto.response.ResponseContainer;
 import ua.com.alevel.starteducation.dto.response.TopicDtoResponse;
 import ua.com.alevel.starteducation.facade.TopicFacade;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,12 +21,14 @@ public class TopicController {
         this.topicFacade = topicFacade;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
-    private ResponseEntity<ResponseContainer<Boolean>> create(TopicDtoRequest dto, @RequestParam Long teacherId) {
+    private ResponseEntity<ResponseContainer<Boolean>> create(@Valid TopicDtoRequest dto, @RequestParam Long teacherId) {
         topicFacade.create(dto, teacherId);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseContainer<>(true));
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
     private ResponseEntity<ResponseContainer<Boolean>> update(TopicDtoRequest dto, @PathVariable Long id) {
         topicFacade.update(dto, id);
@@ -49,7 +52,7 @@ public class TopicController {
     }
 
     @GetMapping("/teacher")
-    private ResponseEntity findAllByTeacher(@RequestParam Long teacherId) {
+    private ResponseEntity<ResponseContainer<List<TopicDtoResponse>>> findAllByTeacher(@RequestParam Long teacherId) {
         return ResponseEntity.ok(new ResponseContainer<>(topicFacade.findAllByTeacher(teacherId)));
     }
 }

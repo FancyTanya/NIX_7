@@ -1,4 +1,6 @@
 spring:
+  flyway:
+    enabled: false
   profiles:
     active: dev
     group:
@@ -6,6 +8,8 @@ spring:
         - local-dev
         - debug
   jpa:
+    hibernate:
+      ddl-auto: update
     open-in-view: false
 server:
   error:
@@ -17,3 +21,14 @@ management:
   endpoint:
     health:
       show-details: always
+
+education:
+  security:
+    jwt:
+      secret: eitu9aichae7eitee9XiciweishohW3pieshaifasosai5xie9Oomobulohyu8ie
+      access-expire-in: 10m
+      refresh-expire-in: 3d
+      teachers:
+        someteacher:
+          email: teacher@gmail.com
+          password: $2a$12$9K2iuk7VZ2dUU7srnqUpG.o/sf5oQphQvLvx7JBRQmPT0lQtrgGdy

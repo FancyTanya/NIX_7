@@ -8,6 +8,7 @@ import ua.com.alevel.starteducation.dto.response.ResponseContainer;
 import ua.com.alevel.starteducation.dto.response.StudentDtoResponse;
 import ua.com.alevel.starteducation.facade.StudentFacade;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,12 +21,14 @@ public class StudentController {
         this.studentFacade = studentFacade;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    private ResponseEntity<ResponseContainer<Boolean>> create(@RequestBody StudentDtoRequest dto) {
+    private ResponseEntity<ResponseContainer<Boolean>> create(@Valid @RequestBody StudentDtoRequest dto) {
         studentFacade.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseContainer<>(true));
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
     private ResponseEntity<ResponseContainer<Boolean>> update(@RequestBody StudentDtoRequest dto, @PathVariable Long id) {
         studentFacade.update(dto, id);
