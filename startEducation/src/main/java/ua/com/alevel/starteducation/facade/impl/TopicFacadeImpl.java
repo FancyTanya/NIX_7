@@ -62,6 +62,6 @@ public class TopicFacadeImpl implements TopicFacade {
 
     @Override
     public List<TopicDtoResponse> findAllByTeacher(Long teacherId, Pageable pageable) {
-        return topicService.findAllByTeacher(teacherId, pageable).stream().map(TopicDtoResponse::new).collect(Collectors.toList());
+        return topicService.findAllByTeacher(teacherId, pageable).stream().map(TopicDtoResponse::fromTopic).collect(Collectors.toList());
     }
 }

@@ -39,5 +39,4 @@ public class EducationUser {
     @MapKey(name = "id")
     private Map<KnownAuthority, EducationUserAuthority> authorities = new EnumMap<>(KnownAuthority.class);
 
-
 }

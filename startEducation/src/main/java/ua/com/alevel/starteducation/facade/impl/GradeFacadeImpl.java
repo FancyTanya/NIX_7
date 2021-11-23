@@ -58,12 +58,12 @@ public class GradeFacadeImpl implements GradeFacade {
 
     @Override
     public List<GradeDtoResponse> findAll(Pageable pageable) {
-        return gradeService.findAll(pageable).stream().map(GradeDtoResponse::new).collect(Collectors.toList());
+        return gradeService.findAll(pageable).stream().map(GradeDtoResponse::fromGrade).collect(Collectors.toList());
     }
 
     @Override
     public List<GradeDtoResponse> findAllByStudent(Long id, Pageable pageable) {
-        return gradeService.findAllByStudent(id, pageable).stream().map(GradeDtoResponse::new).collect(Collectors.toList());
+        return gradeService.findAllByStudent(id, pageable).stream().map(GradeDtoResponse::fromGrade).collect(Collectors.toList());
     }
 
 

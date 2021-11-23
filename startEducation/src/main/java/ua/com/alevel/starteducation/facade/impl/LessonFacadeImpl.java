@@ -57,12 +57,12 @@ public class LessonFacadeImpl implements LessonFacade {
 
     @Override
     public List<LessonDtoResponse> findAll(Pageable pageable) {
-        return lessonService.findAll(pageable).stream().map(LessonDtoResponse::new).collect(Collectors.toList());
+        return lessonService.findAll(pageable).stream().map(LessonDtoResponse::fromLesson).collect(Collectors.toList());
     }
 
     @Override
     public List<LessonDtoResponse> findAllByTeacher(Long teacherId, Pageable pageable) {
         Teacher teacher = teacherService.findById(teacherId);
-        return lessonService.findAllByTeacher(teacherId, pageable).stream().map(LessonDtoResponse::new).collect(Collectors.toList());
+        return lessonService.findAllByTeacher(teacherId, pageable).stream().map(LessonDtoResponse::fromLesson).collect(Collectors.toList());
     }
 }

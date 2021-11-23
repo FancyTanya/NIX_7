@@ -1,11 +1,12 @@
 package ua.com.alevel.starteducation.model.auth;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
+@Getter
 @Entity
 @EqualsAndHashCode
 @Table(name = "authorities")

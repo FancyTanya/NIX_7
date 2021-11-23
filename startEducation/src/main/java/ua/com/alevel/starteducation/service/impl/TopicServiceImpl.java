@@ -10,7 +10,6 @@ import ua.com.alevel.starteducation.model.Topic;
 import ua.com.alevel.starteducation.repository.TopicRepository;
 import ua.com.alevel.starteducation.service.TopicService;
 
-import java.util.List;
 @Service
 public class TopicServiceImpl implements TopicService {
 

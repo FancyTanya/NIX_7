@@ -1,5 +1,8 @@
 package ua.com.alevel.starteducation.controller;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,12 +50,14 @@ public class TopicController {
     }
 
     @GetMapping()
-    private ResponseEntity<ResponseContainer<List<TopicDtoResponse>>> findAll() {
-        return ResponseEntity.ok(new ResponseContainer<>(topicFacade.findAll()));
+    @PageableAsQueryParam
+    private ResponseEntity<ResponseContainer<List<TopicDtoResponse>>> findAll(@Parameter(hidden = true) Pageable pageable) {
+        return ResponseEntity.ok(new ResponseContainer<>(topicFacade.findAll(pageable)));
     }
 
     @GetMapping("/teacher")
-    private ResponseEntity<ResponseContainer<List<TopicDtoResponse>>> findAllByTeacher(@RequestParam Long teacherId) {
-        return ResponseEntity.ok(new ResponseContainer<>(topicFacade.findAllByTeacher(teacherId)));
+    @PageableAsQueryParam
+    private ResponseEntity<ResponseContainer<List<TopicDtoResponse>>> findAllByTeacher(@RequestParam Long teacherId, @Parameter(hidden = true) Pageable pageable) {
+        return ResponseEntity.ok(new ResponseContainer<>(topicFacade.findAllByTeacher(teacherId, pageable)));
     }
 }

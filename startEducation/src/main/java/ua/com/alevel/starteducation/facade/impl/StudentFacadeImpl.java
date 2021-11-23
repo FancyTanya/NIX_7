@@ -52,11 +52,11 @@ public class StudentFacadeImpl implements StudentFacade {
 
     @Override
     public List<StudentDtoResponse> findAll(Pageable pageable) {
-        return studentService.findAll(pageable).stream().map(StudentDtoResponse::new).collect(Collectors.toList());
+        return studentService.findAll(pageable).stream().map(StudentDtoResponse::fromStudent).collect(Collectors.toList());
     }
 
     @Override
     public List<StudentDtoResponse> findAllByTeacher(Long teacherId, Pageable pageable) {
-        return studentService.findAllByTeacher(teacherId, pageable).stream().map(StudentDtoResponse::new).collect(Collectors.toList());
+        return studentService.findAllByTeacher(teacherId, pageable).stream().map(StudentDtoResponse::fromStudent).collect(Collectors.toList());
     }
 }

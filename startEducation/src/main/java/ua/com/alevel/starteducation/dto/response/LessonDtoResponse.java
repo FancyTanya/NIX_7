@@ -1,5 +1,6 @@
 package ua.com.alevel.starteducation.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import java.time.OffsetDateTime;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class LessonDtoResponse {
 
     private String title;
@@ -25,6 +27,15 @@ public class LessonDtoResponse {
         if (lesson.getTeacher() != null) {
             this.teacherId = lesson.getTeacher().getId();
         }
+    }
+
+    public static LessonDtoResponse fromLesson(Lesson lesson) {
+        return new LessonDtoResponse(
+                lesson.getTitle(),
+                lesson.getDate(),
+                lesson.isComplete(),
+                lesson.getId(),
+                lesson.getTeacher().getId());
     }
 
 }

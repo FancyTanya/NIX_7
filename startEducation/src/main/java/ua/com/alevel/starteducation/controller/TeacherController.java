@@ -1,6 +1,9 @@
 package ua.com.alevel.starteducation.controller;
 
 
+import io.swagger.v3.oas.annotations.Parameter;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +51,8 @@ public class TeacherController {
     }
 
     @GetMapping()
-    private ResponseEntity<ResponseContainer<List<TeacherDtoResponse>>> findAll() {
-        return ResponseEntity.ok().body(new ResponseContainer<>(teacherFacade.findAll()));
+    @PageableAsQueryParam
+    private ResponseEntity<ResponseContainer<List<TeacherDtoResponse>>> findAll(@Parameter(hidden = true) Pageable pageable) {
+        return ResponseEntity.ok().body(new ResponseContainer<>(teacherFacade.findAll(pageable)));
     }
 }
