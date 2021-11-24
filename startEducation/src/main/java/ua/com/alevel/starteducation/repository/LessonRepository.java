@@ -7,5 +7,5 @@ import ua.com.alevel.starteducation.dto.response.ResponseContainer;
 import ua.com.alevel.starteducation.model.Lesson;
 
 public interface LessonRepository extends JpaRepository<Lesson, Long> {
-    Page<ResponseContainer> findAllByTeacher(Long teacherId, Pageable pageable);
+    Page<Lesson> findAllByTeacher(Long teacherId, Pageable pageable);
 }

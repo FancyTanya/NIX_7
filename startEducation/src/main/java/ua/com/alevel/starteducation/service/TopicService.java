@@ -6,5 +6,5 @@ import ua.com.alevel.starteducation.dto.response.ResponseContainer;
 import ua.com.alevel.starteducation.model.Topic;
 
 public interface TopicService extends CrudService<Topic>{
-    Page<ResponseContainer> findAllByTeacher(Long teacherId, Pageable pageable);
+    Page<Topic> findAllByTeacher(Long teacherId, Pageable pageable);
 }

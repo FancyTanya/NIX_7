@@ -8,7 +8,7 @@ import java.util.EnumSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-public interface AuthorityRepository extends JpaRepository<EducationUserAuthority, Long> {
+public interface AuthorityRepository extends JpaRepository<EducationUserAuthority, KnownAuthority> {
 
     Set<KnownAuthority> TEACHERS_AUTHORITIES = EnumSet.of(KnownAuthority.ROLE_USER, KnownAuthority.ROLE_TEACHER);
 

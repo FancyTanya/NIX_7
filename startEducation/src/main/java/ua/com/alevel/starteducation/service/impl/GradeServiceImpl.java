@@ -49,13 +49,13 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     @PageableAsQueryParam
-    public Page<ResponseContainer> findAll(@Parameter(hidden = true) Pageable pageable) {
-        return gradeRepository.findAll(pageable).map(ResponseContainer::new);
+    public Page<Grade> findAll(@Parameter(hidden = true) Pageable pageable) {
+        return gradeRepository.findAll(pageable);
     }
 
     @Override
     @PageableAsQueryParam
-    public Page<ResponseContainer> findAllByStudent(Long studentId, @Parameter(hidden = true) Pageable pageable) {
-        return gradeRepository.findAllByStudent(studentId, pageable).map(ResponseContainer::new);
+    public Page<Grade> findAllByStudent(Long studentId, @Parameter(hidden = true) Pageable pageable) {
+        return gradeRepository.findAllByStudent(studentId, pageable);
     }
 }

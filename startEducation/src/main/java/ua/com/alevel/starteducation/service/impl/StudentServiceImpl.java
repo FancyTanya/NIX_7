@@ -48,13 +48,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @PageableAsQueryParam
-    public Page<ResponseContainer> findAll(@Parameter(hidden = true) Pageable pageable) {
-        return studentRepository.findAll(pageable).map(ResponseContainer::new);
+    public Page<Student> findAll(@Parameter(hidden = true) Pageable pageable) {
+        return studentRepository.findAll(pageable);
     }
 
     @Override
     @PageableAsQueryParam
-    public Page<ResponseContainer> findAllByTeacher(Long teacherId, @Parameter(hidden = true) Pageable pageable) {
-        return studentRepository.findAllByTeacher(teacherId, pageable).map(ResponseContainer::new);
+    public Page<Student> findAllByTeacher(Long teacherId, @Parameter(hidden = true) Pageable pageable) {
+        return studentRepository.findAllByTeacher(teacherId, pageable);
     }
 }

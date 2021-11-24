@@ -8,5 +8,5 @@ import ua.com.alevel.starteducation.model.Lesson;
 import java.util.List;
 
 public interface LessonService extends CrudService<Lesson>{
-    Page<ResponseContainer> findAllByTeacher(Long teacherId, Pageable pageable);
+    Page<Lesson> findAllByTeacher(Long teacherId, Pageable pageable);
 }

@@ -1,5 +1,6 @@
 package ua.com.alevel.starteducation.facade.impl;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,13 +58,13 @@ public class GradeFacadeImpl implements GradeFacade {
     }
 
     @Override
-    public List<GradeDtoResponse> findAll(Pageable pageable) {
-        return gradeService.findAll(pageable).stream().map(GradeDtoResponse::fromGrade).collect(Collectors.toList());
+    public Page<Grade> findAll(Pageable pageable) {
+        return gradeService.findAll(pageable);
     }
 
     @Override
-    public List<GradeDtoResponse> findAllByStudent(Long id, Pageable pageable) {
-        return gradeService.findAllByStudent(id, pageable).stream().map(GradeDtoResponse::fromGrade).collect(Collectors.toList());
+    public Page<Grade> findAllByStudent(Long id, Pageable pageable) {
+        return gradeService.findAllByStudent(id, pageable);
     }
 
 

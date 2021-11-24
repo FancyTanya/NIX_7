@@ -1,5 +1,6 @@
 package ua.com.alevel.starteducation.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -161,7 +163,8 @@ public class UserServiceImpl implements UserService {
 
     private Map<KnownAuthority, EducationUserAuthority> getStudentAuthorities() {
         EducationUserAuthority authority = authorityRepository
-                .findAllById(KnownAuthority.ROLE_STUDENT);
+                .findById(KnownAuthority.ROLE_STUDENT)
+                .orElseThrow(() -> EducationException.userNotFound(KnownAuthority.ROLE_STUDENT.name()));
         Map<KnownAuthority, EducationUserAuthority> authorityMap = new EnumMap<KnownAuthority, EducationUserAuthority>(KnownAuthority.class);
         authorityMap.put(KnownAuthority.ROLE_STUDENT, authority);
         return authorityMap;

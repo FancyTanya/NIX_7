@@ -1,5 +1,6 @@
 package ua.com.alevel.starteducation.facade.impl;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,12 +57,12 @@ public class TopicFacadeImpl implements TopicFacade {
     }
 
     @Override
-    public List<TopicDtoResponse> findAll(Pageable pageable) {
-        return topicService.findAll(pageable).stream().map(TopicDtoResponse::new).collect(Collectors.toList());
+    public Page<Topic> findAll(Pageable pageable) {
+        return topicService.findAll(pageable);
     }
 
     @Override
-    public List<TopicDtoResponse> findAllByTeacher(Long teacherId, Pageable pageable) {
-        return topicService.findAllByTeacher(teacherId, pageable).stream().map(TopicDtoResponse::fromTopic).collect(Collectors.toList());
+    public Page<Topic> findAllByTeacher(Long teacherId, Pageable pageable) {
+        return topicService.findAllByTeacher(teacherId, pageable);
     }
 }

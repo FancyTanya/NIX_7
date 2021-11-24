@@ -1,8 +1,10 @@
 package ua.com.alevel.starteducation.facade;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ua.com.alevel.starteducation.dto.request.LessonDtoRequest;
 import ua.com.alevel.starteducation.dto.response.LessonDtoResponse;
+import ua.com.alevel.starteducation.model.Lesson;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ public interface LessonFacade {
 
     LessonDtoResponse findById(Long id);
 
-    List<LessonDtoResponse> findAll(Pageable pageable);
+    Page<Lesson> findAll(Pageable pageable);
 
-    List<LessonDtoResponse> findAllByTeacher(Long teacherId, Pageable pageable);
+    Page<Lesson> findAllByTeacher(Long teacherId, Pageable pageable);
 }

@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    Page<ResponseContainer> findAllByTeacher(Long teacherId, Pageable pageable);
+    Page<Student> findAllByTeacher(Long teacherId, Pageable pageable);
 }

@@ -49,8 +49,8 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     @PageableAsQueryParam
-    public Page<ResponseContainer> findAll(@Parameter(hidden = true) Pageable pageable) {
-        return teacherRepository.findAll(pageable).map(ResponseContainer::new);
+    public Page<Teacher> findAll(@Parameter(hidden = true) Pageable pageable) {
+        return teacherRepository.findAll(pageable);
     }
 
 }

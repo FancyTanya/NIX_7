@@ -1,5 +1,6 @@
 package ua.com.alevel.starteducation.facade.impl;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,12 +52,12 @@ public class StudentFacadeImpl implements StudentFacade {
     }
 
     @Override
-    public List<StudentDtoResponse> findAll(Pageable pageable) {
-        return studentService.findAll(pageable).stream().map(StudentDtoResponse::fromStudent).collect(Collectors.toList());
+    public Page<Student> findAll(Pageable pageable) {
+        return studentService.findAll(pageable);
     }
 
     @Override
-    public List<StudentDtoResponse> findAllByTeacher(Long teacherId, Pageable pageable) {
-        return studentService.findAllByTeacher(teacherId, pageable).stream().map(StudentDtoResponse::fromStudent).collect(Collectors.toList());
+    public Page<Student> findAllByTeacher(Long teacherId, Pageable pageable) {
+        return studentService.findAllByTeacher(teacherId, pageable);
     }
 }

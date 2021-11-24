@@ -49,13 +49,13 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     @PageableAsQueryParam
-    public Page<ResponseContainer> findAll(@Parameter(hidden = true) Pageable pageable) {
-        return lessonRepository.findAll(pageable).map(ResponseContainer::new);
+    public Page<Lesson> findAll(@Parameter(hidden = true) Pageable pageable) {
+        return lessonRepository.findAll(pageable);
     }
 
     @Override
     @PageableAsQueryParam
-    public Page<ResponseContainer> findAllByTeacher(Long teacherId, @Parameter(hidden = true) Pageable pageable) {
-        return lessonRepository.findAllByTeacher(teacherId, pageable).map(ResponseContainer::new);
+    public Page<Lesson> findAllByTeacher(Long teacherId, @Parameter(hidden = true) Pageable pageable) {
+        return lessonRepository.findAllByTeacher(teacherId, pageable);
     }
 }

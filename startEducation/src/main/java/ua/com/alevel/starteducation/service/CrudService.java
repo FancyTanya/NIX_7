@@ -14,7 +14,7 @@ public interface CrudService<E extends BaseEntity> {
     void delete(Long id);
     boolean existById(Long id);
     E findById(Long id);
-    Page<ResponseContainer> findAll(Pageable pageable);
+    Page<E> findAll(Pageable pageable);
 
 
 }

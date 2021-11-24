@@ -50,8 +50,8 @@ public class TeacherFacadeImpl implements TeacherFacade {
     }
 
     @Override
-    public List<TeacherDtoResponse> findAll(Pageable pageable) {
-        return teacherService.findAll(pageable).stream().map(TeacherDtoResponse::fromTeacher).collect(Collectors.toList());
+    public Page<Teacher> findAll(Pageable pageable) {
+        return teacherService.findAll(pageable);
     }
 }
 
