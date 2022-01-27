@@ -5,7 +5,9 @@ import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ua.com.alevel.starteducation.dto.response.LessonDtoResponse;
 import ua.com.alevel.starteducation.dto.response.ResponseContainer;
+import ua.com.alevel.starteducation.exceptions.EducationException;
 import ua.com.alevel.starteducation.model.Lesson;
 import ua.com.alevel.starteducation.repository.LessonRepository;
 import ua.com.alevel.starteducation.repository.TeacherRepository;
@@ -44,7 +46,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public Lesson findById(Long id) {
-        return lessonRepository.findById(id).get();
+        return lessonRepository.findById(id).orElseThrow(() -> EducationException.userNotFound(id));
     }
 
     @Override
@@ -55,7 +57,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     @PageableAsQueryParam
-    public Page<Lesson> findAllByTeacher(Long teacherId, @Parameter(hidden = true) Pageable pageable) {
+    public Page<LessonDtoResponse> findAllByTeacher(Long teacherId, @Parameter(hidden = true) Pageable pageable) {
         return lessonRepository.findAllByTeacher(teacherId, pageable);
     }
 }

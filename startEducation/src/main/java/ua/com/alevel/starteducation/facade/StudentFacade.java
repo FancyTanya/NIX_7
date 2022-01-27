@@ -18,8 +18,8 @@ public interface StudentFacade {
 
     StudentDtoResponse findById(Long id);
 
-    Page<Student> findAll(Pageable pageable);
+    Page<StudentDtoResponse> findAll(Pageable pageable);
 
-    Page<Student>  findAllByTeacher(Long teacherId, Pageable pageable);
+    Page<StudentDtoResponse>  findAllByTeacher(Long teacherId, Pageable pageable);
 
 }

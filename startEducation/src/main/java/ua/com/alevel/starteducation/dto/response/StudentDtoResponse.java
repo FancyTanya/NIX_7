@@ -10,7 +10,7 @@ import ua.com.alevel.starteducation.model.Student;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentDtoResponse {
+public class StudentDtoResponse{
 
     private String firstName;
     private String lastName;

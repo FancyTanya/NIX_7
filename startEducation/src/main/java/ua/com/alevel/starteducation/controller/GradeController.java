@@ -2,6 +2,7 @@ package ua.com.alevel.starteducation.controller;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/grades")
+@RequestMapping("/api/v1/grades")
 public class GradeController {
 
     private final GradeFacade gradeFacade;
@@ -52,13 +53,13 @@ public class GradeController {
 
     @GetMapping()
     @PageableAsQueryParam
-    private ResponseEntity<ResponseContainer<List<GradeDtoResponse>>> findAll(@Parameter(hidden = true) Pageable pageable) {
+    private ResponseEntity<ResponseContainer<Page<GradeDtoResponse>>> findAll(@Parameter(hidden = true) Pageable pageable) {
         return ResponseEntity.ok(new ResponseContainer<>(gradeFacade.findAll(pageable)));
     }
 
     @GetMapping("/student")
     @PageableAsQueryParam
-    private ResponseEntity<ResponseContainer<List<GradeDtoResponse>>> findAllByStudent(@PathVariable Long id, @Parameter(hidden = true) Pageable pageable) {
+    private ResponseEntity<ResponseContainer<Page<GradeDtoResponse>>> findAllByStudent(@PathVariable Long id, @Parameter(hidden = true) Pageable pageable) {
         return ResponseEntity.ok(new ResponseContainer<>(gradeFacade.findAllByStudent(id, pageable)));
     }
 }

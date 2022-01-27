@@ -3,6 +3,7 @@ package ua.com.alevel.starteducation.controller;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/teachers")
+@RequestMapping("/api/v1/teachers")
 public class TeacherController {
 
     private final TeacherFacade teacherFacade;
@@ -52,7 +53,7 @@ public class TeacherController {
 
     @GetMapping()
     @PageableAsQueryParam
-    private ResponseEntity<ResponseContainer<List<TeacherDtoResponse>>> findAll(@Parameter(hidden = true) Pageable pageable) {
+    private ResponseEntity<ResponseContainer<Page<TeacherDtoResponse>>> findAll(@Parameter(hidden = true) Pageable pageable) {
         return ResponseEntity.ok().body(new ResponseContainer<>(teacherFacade.findAll(pageable)));
     }
 }

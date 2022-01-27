@@ -3,16 +3,15 @@ package ua.com.alevel.starteducation.facade.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.starteducation.dto.request.TeacherDtoRequest;
 import ua.com.alevel.starteducation.dto.response.TeacherDtoResponse;
 import ua.com.alevel.starteducation.facade.TeacherFacade;
 import ua.com.alevel.starteducation.model.Teacher;
 import ua.com.alevel.starteducation.service.TeacherService;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
+@Transactional
 public class TeacherFacadeImpl implements TeacherFacade {
 
     private final TeacherService teacherService;
@@ -50,7 +49,7 @@ public class TeacherFacadeImpl implements TeacherFacade {
     }
 
     @Override
-    public Page<Teacher> findAll(Pageable pageable) {
+    public Page<TeacherDtoResponse> findAll(Pageable pageable) {
         return teacherService.findAll(pageable);
     }
 }

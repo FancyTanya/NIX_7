@@ -10,10 +10,8 @@ import ua.com.alevel.starteducation.facade.StudentFacade;
 import ua.com.alevel.starteducation.model.Student;
 import ua.com.alevel.starteducation.service.StudentService;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
+@Transactional
 public class StudentFacadeImpl implements StudentFacade {
 
     private final StudentService studentService;
@@ -52,12 +50,12 @@ public class StudentFacadeImpl implements StudentFacade {
     }
 
     @Override
-    public Page<Student> findAll(Pageable pageable) {
+    public Page<StudentDtoResponse> findAll(Pageable pageable) {
         return studentService.findAll(pageable);
     }
 
     @Override
-    public Page<Student> findAllByTeacher(Long teacherId, Pageable pageable) {
+    public Page<StudentDtoResponse> findAllByTeacher(Long teacherId, Pageable pageable) {
         return studentService.findAllByTeacher(teacherId, pageable);
     }
 }

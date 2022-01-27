@@ -61,19 +61,19 @@ public class UserController {
         return userService.list(pageable);
     }
 
-    @PostMapping("/admins")
+    @PostMapping("/register/admins")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDtoResponse registerAdmin(@RequestBody @Valid SaveUserRequest request) {
         return userService.createAdmin(request);
     }
 
-    @PostMapping("/teachers")
+    @PostMapping("/register/teachers")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDtoResponse registerTeacher(@RequestBody @Valid SaveUserRequest request) {
         return userService.createTeacher(request);
     }
 
-    @PostMapping("/students")
+    @PostMapping("/register/students")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDtoResponse registerStudent(@RequestBody @Valid SaveUserRequest request) {
         return userService.createStudent(request);

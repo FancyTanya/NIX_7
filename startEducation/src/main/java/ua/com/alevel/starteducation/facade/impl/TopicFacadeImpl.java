@@ -12,9 +12,6 @@ import ua.com.alevel.starteducation.model.Topic;
 import ua.com.alevel.starteducation.service.TeacherService;
 import ua.com.alevel.starteducation.service.TopicService;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @Transactional
 public class TopicFacadeImpl implements TopicFacade {
@@ -57,12 +54,12 @@ public class TopicFacadeImpl implements TopicFacade {
     }
 
     @Override
-    public Page<Topic> findAll(Pageable pageable) {
+    public Page<TopicDtoResponse> findAll(Pageable pageable) {
         return topicService.findAll(pageable);
     }
 
     @Override
-    public Page<Topic> findAllByTeacher(Long teacherId, Pageable pageable) {
+    public Page<TopicDtoResponse> findAllByTeacher(Long teacherId, Pageable pageable) {
         return topicService.findAllByTeacher(teacherId, pageable);
     }
 }

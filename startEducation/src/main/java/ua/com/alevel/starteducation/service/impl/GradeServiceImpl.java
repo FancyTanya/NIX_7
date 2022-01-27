@@ -5,7 +5,10 @@ import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ua.com.alevel.starteducation.dto.response.GradeDtoResponse;
 import ua.com.alevel.starteducation.dto.response.ResponseContainer;
+import ua.com.alevel.starteducation.exceptions.EducationException;
 import ua.com.alevel.starteducation.model.Grade;
 import ua.com.alevel.starteducation.repository.GradeRepository;
 import ua.com.alevel.starteducation.service.GradeService;
@@ -44,18 +47,18 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public Grade findById(Long id) {
-        return gradeRepository.findById(id).get();
+        return gradeRepository.findById(id).orElseThrow(() -> EducationException.userNotFound(id));
     }
 
     @Override
     @PageableAsQueryParam
-    public Page<Grade> findAll(@Parameter(hidden = true) Pageable pageable) {
-        return gradeRepository.findAll(pageable);
+    public Page<GradeDtoResponse> findAll(@Parameter(hidden = true) Pageable pageable) {
+        return gradeRepository.findAll(pageable).map(GradeDtoResponse::fromGrade);
     }
 
     @Override
     @PageableAsQueryParam
-    public Page<Grade> findAllByStudent(Long studentId, @Parameter(hidden = true) Pageable pageable) {
+    public Page<GradeDtoResponse> findAllByStudent(Long studentId, @Parameter(hidden = true) Pageable pageable) {
         return gradeRepository.findAllByStudent(studentId, pageable);
     }
 }

@@ -12,9 +12,6 @@ import ua.com.alevel.starteducation.model.Student;
 import ua.com.alevel.starteducation.service.GradeService;
 import ua.com.alevel.starteducation.service.StudentService;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Component
 @Transactional
 public class GradeFacadeImpl implements GradeFacade {
@@ -58,12 +55,12 @@ public class GradeFacadeImpl implements GradeFacade {
     }
 
     @Override
-    public Page<Grade> findAll(Pageable pageable) {
+    public Page<GradeDtoResponse> findAll(Pageable pageable) {
         return gradeService.findAll(pageable);
     }
 
     @Override
-    public Page<Grade> findAllByStudent(Long id, Pageable pageable) {
+    public Page<GradeDtoResponse> findAllByStudent(Long id, Pageable pageable) {
         return gradeService.findAllByStudent(id, pageable);
     }
 

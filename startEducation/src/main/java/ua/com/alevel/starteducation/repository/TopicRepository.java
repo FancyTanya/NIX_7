@@ -3,12 +3,11 @@ package ua.com.alevel.starteducation.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import ua.com.alevel.starteducation.dto.response.ResponseContainer;
+import ua.com.alevel.starteducation.dto.response.TopicDtoResponse;
 import ua.com.alevel.starteducation.model.Teacher;
 import ua.com.alevel.starteducation.model.Topic;
 
-import java.util.List;
-
 public interface TopicRepository extends JpaRepository<Topic, Long> {
-    Page<Topic> findAllByTeacher(Teacher teacher, Pageable pageable);
+
+    Page<TopicDtoResponse> findAllByTeacher(Teacher teacher, Pageable pageable);
 }

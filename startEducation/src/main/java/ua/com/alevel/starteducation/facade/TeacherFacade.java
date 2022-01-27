@@ -18,6 +18,6 @@ public interface TeacherFacade {
 
     TeacherDtoResponse findById(Long id);
 
-    Page<Teacher> findAll(Pageable pageable);
+    Page<TeacherDtoResponse> findAll(Pageable pageable);
 
 }

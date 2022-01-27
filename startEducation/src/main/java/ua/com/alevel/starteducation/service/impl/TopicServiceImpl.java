@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ua.com.alevel.starteducation.dto.response.ResponseContainer;
+import ua.com.alevel.starteducation.dto.response.TopicDtoResponse;
 import ua.com.alevel.starteducation.model.Topic;
 import ua.com.alevel.starteducation.repository.TeacherRepository;
 import ua.com.alevel.starteducation.repository.TopicRepository;
@@ -52,7 +52,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public Page<Topic> findAllByTeacher(Long teacherId, @Parameter(hidden = true) Pageable pageable) {
+    public Page<TopicDtoResponse> findAllByTeacher(Long teacherId, @Parameter(hidden = true) Pageable pageable) {
         return topicRepository.findAllByTeacher(teacherRepository.getById(teacherId), pageable);
     }
 }
